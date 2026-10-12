@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { Resend } from "resend";
 import { z } from "zod";
-import { quoteRequestSchema } from "@/lib/quote-schema";
+import { quoteRequestSchema, type QuoteRequest } from "@/lib/quote-schema";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export const runtime = "nodejs";
@@ -56,5 +57,31 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  await notifyByEmail(data);
+
   return NextResponse.json({ ok: true }, { status: 201 });
+}
+
+/** Best-effort notification. The request already succeeded (row is saved), so a mail failure is logged, not surfaced. */
+async function notifyByEmail(data: QuoteRequest) {
+  const { RESEND_API_KEY, EMAIL_FROM, EMAIL_TO } = process.env;
+  if (!RESEND_API_KEY || !EMAIL_FROM || !EMAIL_TO) return;
+
+  try {
+    const resend = new Resend(RESEND_API_KEY);
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: EMAIL_TO,
+      subject: `New quote request: ${data.planned_gpu_count}x ${data.gpu_type}`,
+      text: [
+        `Email: ${data.email}`,
+        `GPU count: ${data.planned_gpu_count}`,
+        `GPU type: ${data.gpu_type}`,
+        `Deployment timing: ${data.deployment_timing}`,
+        `Notes: ${data.notes ?? "—"}`,
+      ].join("\n"),
+    });
+  } catch (err) {
+    console.error("[quote-requests] email notify failed:", err);
+  }
 }

@@ -10,7 +10,7 @@ export const organizationSchema = {
   url: "https://icecastle.ai",
   logo: "https://icecastle.ai/logo.png",
   description:
-    "NVIDIA B200/B300 GPU capacity for sustained AI workloads. 12–24-month commitments with an indicative ~$5/GPU-hour target.",
+    "NVIDIA B200/B300 GPU capacity for sustained AI workloads. 36-month minimum commitments with an indicative ~$5/GPU-hour target.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Sales",
@@ -50,7 +50,7 @@ export const faqSchema = {
       name: "What is ICE Castle?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "ICE Castle provides reserved NVIDIA B200/B300 GPU capacity on 12–24-month commitments with an indicative ~$5/GPU-hour target for sustained AI workloads like inference, training, and fine-tuning.",
+        text: "ICE Castle provides reserved NVIDIA B200/B300 GPU capacity on 36-month minimum commitments with an indicative ~$5/GPU-hour target for sustained AI workloads like inference, training, and fine-tuning.",
       },
     },
     {
@@ -66,7 +66,7 @@ export const faqSchema = {
       name: "How much does it cost?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Indicative ~$5/GPU-hour on qualifying 12–24-month commitments (deployment-specific). Typical on-demand rates are ~$10/GPU-hour, so a committed rate can cut costs ~50% at full utilization.",
+        text: "Indicative ~$5/GPU-hour on qualifying 36-month-minimum commitments (deployment-specific). Typical on-demand rates are ~$10/GPU-hour, so a committed rate can cut costs ~50% at full utilization.",
       },
     },
     {
@@ -82,7 +82,7 @@ export const faqSchema = {
       name: "What are qualifying deployments?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Qualifying deployments are predictable, sustained 24/7 AI workloads. The ~$5/GPU-hour target applies to long-term commitments (12–24 months) where you can forecast your GPU usage.",
+        text: "Qualifying deployments are predictable, sustained 24/7 AI workloads. The ~$5/GPU-hour target applies to long-term commitments (36+ months) where you can forecast your GPU usage.",
       },
     },
   ],

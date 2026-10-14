@@ -168,10 +168,10 @@ export const articles: Article[] = [
     body: (
       <>
       <p>We quote &ldquo;~$5/GPU-hour for qualifying long-term commitments&rdquo; &mdash; and we deliberately do not say &ldquo;all our GPUs cost $5/hr.&rdquo; That honesty is a feature, not a legal department&rsquo;s invention. This article explains exactly what &ldquo;qualifying&rdquo; means, what moves your real price, and how a quote gets built.</p>
-      <p>First, the target rate describes deployments that look a certain way: <strong>sustained, multi-GPU baseload workloads committed for 12&ndash;24 months</strong>, in regions where capacity is secured and contracted. If your deployment matches that profile, ~$5/GPU-hour is the starting point of the conversation &mdash; not the final number, but the anchor.</p>
+      <p>First, the target rate describes deployments that look a certain way: <strong>sustained, multi-GPU baseload workloads committed for 36+ months</strong>, in regions where capacity is secured and contracted. If your deployment matches that profile, ~$5/GPU-hour is the starting point of the conversation &mdash; not the final number, but the anchor.</p>
       <aside className="pull-stat">
         <div className="n">~$5 <span style={{ fontSize: ".45em" }}>/ GPU-hour*</span></div>
-        <div className="c">Target starting rate for qualifying deployments: sustained, multi-GPU baseload, committed 12&ndash;24 months. Final pricing follows the deployment spec below.</div>
+        <div className="c">Target starting rate for qualifying deployments: sustained, multi-GPU baseload, committed 36+ months. Final pricing follows the deployment spec below.</div>
       </aside>
       <h2 className="b-h"><span className="hn">01 / THE FIVE THINGS THAT MOVE THE NUMBER</span></h2>
       <p>Five variables dominate real pricing. In order of impact:</p>
@@ -180,7 +180,7 @@ export const articles: Article[] = [
         <li><span className="mk">02</span><span><strong>Node configuration.</strong> Full 8&times;GPU nodes with high-bandwidth interconnect price differently from smaller builds. The spec we&rsquo;d sign gets quoted against the spec you actually need &mdash; no paying for a node you wouldn&rsquo;t run.</span></li>
         <li><span className="mk">03</span><span><strong>Quantity.</strong> Larger fleets price better per unit: deployment and networking costs amortize over more GPUs. Single-digit GPUss rarely clear the &ldquo;qualifying&rdquo; bar for the target rate.</span></li>
         <li><span className="mk">04</span><span><strong>Region.</strong> Power, cooling, datacenter availability and networking differ by region, and pricing follows the real deployment geography &mdash; wherever your capacity is actually secured.</span></li>
-        <li><span className="mk">05</span><span><strong>Commitment.</strong> A 24-month commitment prices deeper than a 12-month one. The longer the horizon we&rsquo;re securing capacity against, the better the economics we can pass through.</span></li>
+        <li><span className="mk">05</span><span><strong>Commitment.</strong> A longer commitment prices deeper than the 36-month minimum. The longer the horizon we&rsquo;re securing capacity against, the better the economics we can pass through.</span></li>
       </ul>
       <h2 className="b-h"><span className="hn">02 / WHAT THE RATE CLOSES</span></h2>
       <p>The commitment rate covers your dedicated capacity for the full term &mdash; fixed, contracted, known. Node configuration, networking, SLA, uptime target, provisioning time and support model are specified in the agreement <strong>before</strong> you sign, so the number finance models is the number you pay.</p>
@@ -211,7 +211,7 @@ export const articles: Article[] = [
       <p>Think of it as insurance: on-demand is the price of being able to leave at any time. The premium makes sense for experiments, spikes, and anything you&rsquo;re still discovering. But once a workload runs 24/7 &mdash; once the &ldquo;maybe&rdquo; becomes a &ldquo;definitely, forever&rdquo; &mdash; the insurance is pure overhead. Nobody keeps renting the crane after the building is built.</p>
       <h2 className="b-h"><span className="hn">02 / THE TWO ECONOMIC MODELS</span></h2>
       <p><strong>On-demand:</strong> need GPU &rarr; rent GPU &rarr; pay premium hourly rate &rarr; keep paying &rarr; repeat every month. The rate never improves, the bill never settles, and growth multiplies the premium.</p>
-      <p><strong>Committed:</strong> forecast compute &rarr; reserve capacity &rarr; lock the rate for 12&ndash;24 months &rarr; build the business on known cost. Growth multiplies a number you chose, not a market price you inherited.</p>
+      <p><strong>Committed:</strong> forecast compute &rarr; reserve capacity &rarr; lock the rate for 36+ months &rarr; build the business on known cost. Growth multiplies a number you chose, not a market price you inherited.</p>
       <aside className="pull-stat">
         <div className="n">$87,600 &rarr; $43,800</div>
         <div className="c">One GPU, billed 24/7 for a year &mdash; at a typical ~$10/hr on-demand rate versus our ~$5/GPU-hour target. Same machine. Same utilization. Different economic model.</div>
@@ -226,7 +226,7 @@ export const articles: Article[] = [
   {
     slug: "commitment-question",
     index: "07",
-    title: "The 1–2 year commitment question, answered honestly",
+    title: "The 3-year commitment question, answered honestly",
     category: "Honest answers",
     kicker: "Honest answers · 5 min read",
     excerpt: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
@@ -236,20 +236,20 @@ export const articles: Article[] = [
     next: "b200-vs-b300",
     body: (
       <>
-      <p>&ldquo;Why would I commit for two years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>
-      <p>The core claim is simple: <strong>if you&rsquo;d bet your job that you&rsquo;ll still need these GPUs in month 18, committing is just prepaying a cost you were going to pay &mdash; at a materially lower rate.</strong> Everything else is risk management.</p>
+      <p>&ldquo;Why would I commit for three years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>
+      <p>The core claim is simple: <strong>if you&rsquo;d bet your job that you&rsquo;ll still need these GPUs in month 36, committing is just prepaying a cost you were going to pay &mdash; at a materially lower rate.</strong> Everything else is risk management.</p>
       <h2 className="b-h"><span className="hn">01 / WHEN IT MAKES SENSE</span></h2>
       <ul className="a-list">
         <li><span className="mk">01</span><span><strong>Sustained utilization.</strong> Your fleet runs hot, month after month &mdash; average utilization above 70&ndash;80%, with no meaningful idle weeks.</span></li>
         <li><span className="mk">02</span><span><strong>The bill is real.</strong> You&rsquo;re already spending $50k+/month on GPU compute. At this scale the commitment math usually wins by enough to matter in the board deck.</span></li>
         <li><span className="mk">03</span><span><strong>Production workloads.</strong> The committed capacity serves production inference, recurring training, or steady generation pipelines &mdash; not experiments you&rsquo;re still discovering.</span></li>
-        <li><span className="mk">04</span><span><strong>Growth is the shape.</strong> Demand is flat-to-growing over 12&ndash;24 months, so committed capacity gets absorbed rather than stranded.</span></li>
+        <li><span className="mk">04</span><span><strong>Growth is the shape.</strong> Demand is flat-to-growing over 36+ months, so committed capacity gets absorbed rather than stranded.</span></li>
       </ul>
       <h2 className="b-h"><span className="hn">02 / WHEN IT DOESN&rsquo;T</span></h2>
       <ul className="a-list">
         <li><span className="mk">01</span><span><strong>Still finding fit.</strong> If your workload mix changes every quarter, you need flexibility, not a rate.</span></li>
         <li><span className="mk">02</span><span><strong>Spiky or seasonal.</strong> Bursts that come and go belong on cloud elasticity &mdash; locking in idle capacity is the one way to make this model lose money.</span></li>
-        <li><span className="mk">03</span><span><strong>Short runway.</strong> If the next 12 months are uncertain for the business itself, infrastructure commitments are the wrong kind of bet.</span></li>
+        <li><span className="mk">03</span><span><strong>Short runway.</strong> If the next 36 months are uncertain for the business itself, infrastructure commitments are the wrong kind of bet.</span></li>
         <li><span className="mk">04</span><span><strong>Tiny fleets.</strong> A handful of GPUs won&rsquo;t carry commitment economics. The model earns its keep at production scale.</span></li>
       </ul>
       <p>We mean this sincerely: we&rsquo;d rather lose a deal than sell a commitment that strands you. A stranded commitment isn&rsquo;t revenue &mdash; it&rsquo;s a story we don&rsquo;t want told about us.</p>
@@ -258,11 +258,11 @@ export const articles: Article[] = [
         <div className="c">At this spend level, the economics of a committed baseline usually win by enough that the question flips: what justifies staying on demand at all?</div>
       </aside>
       <h2 className="b-h"><span className="hn">03 / THE RISKS, STATED PLAINLY</span></h2>
-      <p><strong>GPU capacity generations.</strong> A two-year commitment could, in theory, strand you on last year&rsquo;s silicon. The practical antidote: commit the baseload you know runs on today&rsquo;s architecture, and keep growth on flexible capacity that can absorb new generations as they ship.</p>
+      <p><strong>GPU capacity generations.</strong> A three-year commitment could, in theory, strand you on last year&rsquo;s silicon. The practical antidote: commit the baseload you know runs on today&rsquo;s architecture, and keep growth on flexible capacity that can absorb new generations as they ship.</p>
       <p><strong>Forecast error.</strong> You might over-commit. The antidote is baseload math: commit the floor you can prove from trailing data &mdash; the 10th-percentile week, not the average &mdash; so the worst case is that extra demand stays on the cloud.</p>
-      <p><strong>Counterparty risk.</strong> You&rsquo;re trusting a provider to be there for 24 months. This is why agreements specify node configuration, networking, SLA, uptime target and support in writing before anything is signed &mdash; and why we publish the spec we&rsquo;d want to read.</p>
+      <p><strong>Counterparty risk.</strong> You&rsquo;re trusting a provider to be there for 36 months. This is why agreements specify node configuration, networking, SLA, uptime target and support in writing before anything is signed &mdash; and why we publish the spec we&rsquo;d want to read.</p>
       <h2 className="b-h"><span className="hn">04 / THE DECISION RULE</span></h2>
-      <p>Forget the spreadsheet for a minute. The rule: if month-18 demand feels like a forecast you would defend to your board, a commitment turns variable spend into a fixed line item at a lower rate. If it feels like a guess, keep the flexibility and revisit when the fog clears.</p>
+      <p>Forget the spreadsheet for a minute. The rule: if month-36 demand feels like a forecast you would defend to your board, a commitment turns variable spend into a fixed line item at a lower rate. If it feels like a guess, keep the flexibility and revisit when the fog clears.</p>
       <p>Our job is to model the difference with your real numbers &mdash; and when the honest answer is &ldquo;not yet,&rdquo; to say so. The companies that commit when it fits tend to do it again. The ones that commit when it doesn&rsquo;t tend to tell everyone. We know which outcome gets chosen.</p>
       <p className="a-close">Long-term leasing isn&rsquo;t for everyone. For the fleet that&rsquo;s hot, growing, and production-proven, it&rsquo;s simply the arithmetic winning over habit. And when it doesn&rsquo;t make sense, the job of an infrastructure partner is to say that first.</p>
       </>

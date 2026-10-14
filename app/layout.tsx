@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s — ICE Castle",
   },
   description:
-    "NVIDIA B200/B300 GPU capacity for sustained AI workloads. 12–24-month commitments with an indicative ~$5/GPU-hour target for qualifying deployments.",
+    "NVIDIA B200/B300 GPU capacity for sustained AI workloads. 36-month minimum commitments with an indicative ~$5/GPU-hour target for qualifying deployments.",
 };
 
 export const viewport: Viewport = {

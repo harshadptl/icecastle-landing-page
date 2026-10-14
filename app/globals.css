@@ -628,3 +628,21 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--border); color: var(-
 .btn[disabled] { opacity: .6; cursor: progress; transform: none; }
 .hp-field { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .field-error { color: #FFB4B4; font-size: .8rem; margin-top: 6px; }
+
+/* ============ SEO / MOBILE READINESS ============ */
+/* Semantic lists for stats and the blog index; keep the original grid look. */
+.hero-stats, .bwall { list-style: none; padding: 0; }
+.hero-stats { margin-bottom: 0; }
+.bwall > li { display: grid; }
+/* Readable prose: nothing below 16px. Uppercase mono micro-labels are left as-is by design. */
+.nav-links, .btn-sm, .hero-stat .l, .price-box .per, .assume, .who-card p,
+.field label, .sld-label, .sld-val, .out-row .k, .out-note, .lease-card p,
+.gpu-card li, .use-card p, .use-card .math .line, .use-card .arrow-flow,
+.burst .s, .base .s, .trust-item, .faq-cell p, .form-note, .form-hint,
+footer, .b-stand, .pull-stat .c, .a-disc, .form-status, .field-error { font-size: 1rem; }
+/* Touch targets: at least 44px tall. */
+.brand, .nav-links a, .back-link, .btn { min-height: 44px; }
+.nav-links a { display: inline-flex; align-items: center; }
+@media (max-width: 420px) {
+  .btn-sm { font-size: 1rem; white-space: normal; text-align: center; line-height: 1.2; }
+}

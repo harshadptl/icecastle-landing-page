@@ -1,11 +1,17 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Calculator from "@/components/Calculator";
 import QuoteForm from "@/components/QuoteForm";
+import StructuredData from "@/components/StructuredData";
+import { HOME_UPDATED, faqSchema, faqs, homePageSchema, productSchema } from "@/lib/structured-data";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function HomePage() {
   return (
     <>
+      <StructuredData schemas={[homePageSchema, productSchema, faqSchema]} />
       <header className="hero" id="top">
         <canvas id="hero-particles" aria-hidden="true"></canvas>
         <div className="wrap">
@@ -13,8 +19,8 @@ export default function HomePage() {
             <div>
               <span className="eyebrow reveal">GPU capacity for AI</span>
               <h1 className="reveal">Scale AI without runaway GPU costs.</h1>
-              <p className="hero-sub reveal">For AI teams with sustained GPU demand: NVIDIA B200 / B300 capacity, 36-month minimum terms, and a <strong>~$5/GPU-hour target</strong> for qualifying deployments. Price is indicative; availability and final terms are deployment-specific.</p>
-              <p className="hero-sub reveal">Reserve a predictable baseline; keep cloud for bursts.</p>
+              <p className="hero-sub reveal">Reserved NVIDIA B200 / B300 GPUs at a <strong>~$5/GPU-hour target</strong>, on 36-month terms.</p>
+              <p className="hero-sub reveal">Reserve a predictable baseline. Keep cloud for bursts. Price is indicative; final terms depend on the deployment.</p>
               <div className="hero-ctas reveal" data-d="1">
                 <a href="#quote" className="btn btn-primary">Check capacity &amp; pricing <span className="arr">→</span></a>
                 <a href="#calculator" className="btn btn-ghost">Estimate savings <span className="arr">→</span></a>
@@ -32,19 +38,19 @@ export default function HomePage() {
               <figcaption className="chip chip-b"><b>36</b> month minimum commitments</figcaption>
             </figure>
           </div>
-          <div className="hero-stats reveal" data-d="2">
-            <div className="hero-stat"><div className="n" data-count="41" data-suffix="%">41%</div><div className="l">Illustrative spend reduction: $10 vs. $5/GPU-hour at 85% on-demand utilization*</div></div>
-            <div className="hero-stat"><div className="n">B200 / B300</div><div className="l">NVIDIA B200 / B300 capacity</div></div>
-            <div className="hero-stat"><div className="n">24/7</div><div className="l">Dedicated capacity for production workloads</div></div>
-          </div>
+          <ul className="hero-stats reveal" data-d="2">
+            <li className="hero-stat"><div className="n" data-count="41" data-suffix="%">41%</div><div className="l">Illustrative spend reduction: $10 vs. $5/GPU-hour at 85% on-demand utilization*</div></li>
+            <li className="hero-stat"><div className="n">B200 / B300</div><div className="l">NVIDIA B200 / B300 capacity</div></li>
+            <li className="hero-stat"><div className="n">24/7</div><div className="l">Dedicated capacity for production workloads</div></li>
+          </ul>
         </div>
       </header>
 
       <section id="who" aria-labelledby="who-h" style={{ paddingTop: "0" }}>
         <div className="wrap">
           <span className="eyebrow reveal">Buyer fit</span>
-          <h2 id="who-h" className="reveal">For AI teams with a steady GPU baseline.</h2>
-          <p className="lede reveal">Best fit: 24/7-class workloads, typically $50K+ in monthly GPU spend, and a baseline you can forecast for 36+ months.</p>
+          <h2 id="who-h" className="reveal">What is ICE Castle, and who is it for?</h2>
+          <p className="lede reveal">ICE Castle rents reserved <a href="https://en.wikipedia.org/wiki/Blackwell_(microarchitecture)" target="_blank" rel="noopener">NVIDIA Blackwell</a> B200 and B300 GPUs to AI teams with steady demand. You commit for 36 months or more. In return, you get a ~$5/GPU-hour target rate, versus about $10 on-demand. Best fit: 24/7 workloads and $50K+ in monthly GPU spend. See <Link href="/blog/qualifying-deployments">what makes a deployment qualify</Link>.</p>
           <div className="cards5">
             <div className="who-card feat reveal">
               <svg viewBox="0 0 24 24" fill="none" stroke="#BDEFFF" strokeWidth="1.6" aria-hidden="true"><path d="M9 2a4 4 0 0 0-4 4c-1.6.8-2.6 2.6-2.5 4.5.1 1.8 1.1 3.2 2.5 4.1A4 4 0 0 0 9 21a4 4 0 0 0 2.9-1.3A4 4 0 0 0 15 22a4 4 0 0 0 4-4c1.4-.9 2.4-2.3 2.5-4.1.1-1.9-.9-3.7-2.5-4.5A4 4 0 0 0 15 2a4 4 0 0 0-2.9 1.3A4 4 0 0 0 9 2z"/><path d="M12 4v16" stroke="#5CA9FF"/></svg>
@@ -134,7 +140,7 @@ export default function HomePage() {
         <div className="wrap">
           <span className="eyebrow reveal">Economics</span>
           <h2 id="econ-h" className="reveal">Model the cost of a committed GPU baseline.</h2>
-          <p className="lede reveal">At 24/7 usage, a $10 vs. $5/GPU-hour comparison halves the hourly-rate cost. At lower on-demand utilization, the committed fleet may still be billed for every reserved hour—model both assumptions below.</p>
+          <p className="lede reveal">At 24/7 usage, $5 vs. $10/GPU-hour halves the hourly cost. At lower utilization, you still pay for every reserved hour. Model both cases below, or read our <Link href="/blog/reserved-vs-on-demand-gpu-pricing">reserved vs on-demand GPU pricing guide</Link>.</p>
           <div className="econ-panel reveal" data-d="1">
             <div className="price-duel">
               <div className="price-box">
@@ -182,7 +188,7 @@ export default function HomePage() {
             <div className="cap">Illustrative annual spend reduction at 85% on-demand utilization, with reserved hours billed in full.<br /><strong>Estimate depends on utilization and contract billing.</strong></div>
           </div>
           <p className="cta-stat reveal">At 32 GPUs running 24/7, a $5 vs. $10/GPU-hour scenario implies an illustrative <strong>~$1.4M annual difference</strong> in GPU spend—before other infrastructure costs.</p>
-          <p className="assume reveal"><strong>*Illustrative only:</strong> $10 vs. $5/GPU-hour. Actual pricing depends on GPU, configuration, quantity, region and term. The ~$5 target applies only to qualifying deployments; it is not a quote.</p>
+          <p className="assume reveal"><strong>*Illustrative only:</strong> $10 vs. $5/GPU-hour. Actual pricing depends on GPU, configuration, quantity, region and term. The ~$5 target applies only to qualifying deployments; it is not a quote. Pricing last reviewed <time dateTime={HOME_UPDATED}>October 2026</time>.</p>
         </div>
 
       <div className="calc" id="calculator" aria-labelledby="calc-h">
@@ -200,12 +206,11 @@ export default function HomePage() {
           <span className="eyebrow reveal">FAQ</span>
           <h2 id="faq-h" className="reveal">Resolve the key procurement questions.</h2>
           <div className="faq-grid">
-            <div className="faq-cell reveal"><div className="ix">01</div><h3>What if our GPU demand changes during the term?</h3><p>The offer describes a 36-month minimum commitment. The public page does not state reduction, cancellation or ramp-down rights; have those terms written into the agreement before signing.</p></div>
-            <div className="faq-cell reveal" data-d="1"><div className="ix">02</div><h3>How do we verify capacity and delivery?</h3><p>Request a dated, region-specific quote naming GPU model and count, configuration, and provisioning date. The page does not publish live inventory or a standard lead time.</p></div>
-            <div className="faq-cell reveal" data-d="2"><div className="ix">03</div><h3>What is included, and when are we billed?</h3><p>Payment cadence and inclusions are not published. Ask the quote to itemize compute, networking, storage, egress, support, setup fees, invoice timing and any minimums.</p></div>
-            <div className="faq-cell reveal" data-d="3"><div className="ix">04</div><h3>What SLA and support will we receive?</h3><p>These are deployment-specific in the available copy. Require the uptime target, response model, support coverage and remedies to be stated in the contract.</p></div>
-            <div className="faq-cell reveal" data-d="4"><div className="ix">05</div><h3>Can we keep our existing cloud for burst demand?</h3><p>Yes. The intended approach is to commit only the predictable baseline and retain cloud for spikes, experiments and workloads you cannot forecast.</p></div>
+            {faqs.map((f, i) => (
+              <div key={f.q} className="faq-cell reveal" data-d={i ? String(i) : undefined}><div className="ix">{String(i + 1).padStart(2, "0")}</div><h3>{f.q}</h3><p>{f.a}</p></div>
+            ))}
           </div>
+          <p className="lede reveal">Still deciding? Read <Link href="/blog/commitment-question">how to approach the commitment question</Link> and <Link href="/blog/baseload-vs-burst">how to split baseload from burst</Link>.</p>
         </div>
       </section>
 

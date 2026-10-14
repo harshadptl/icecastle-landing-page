@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SiteEffects from "@/components/SiteEffects";
 import StructuredData from "@/components/StructuredData";
+import { SITE_URL, organizationSchema } from "@/lib/structured-data";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,12 +27,14 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "ICE Castle — Predictable GPU capacity for AI",
+    default: "Reserved NVIDIA B200/B300 GPUs at ~$5/GPU-Hour — ICE Castle",
     template: "%s — ICE Castle",
   },
   description:
-    "NVIDIA B200/B300 GPU capacity for sustained AI workloads. 36-month minimum commitments with an indicative ~$5/GPU-hour target for qualifying deployments.",
+    "ICE Castle reserves NVIDIA B200/B300 GPUs for sustained AI workloads at a ~$5/GPU-hour target on 36-month terms, vs ~$10 typical on-demand.",
+  openGraph: { siteName: "ICE Castle", type: "website" },
 };
 
 export const viewport: Viewport = {
@@ -46,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${manrope.variable} ${plexMono.variable}`}>
       <head>
-        <StructuredData />
+        <StructuredData schemas={[organizationSchema]} />
       </head>
       <body>
         <Nav />

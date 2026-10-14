@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, getArticle } from "@/lib/articles";
+import StructuredData from "@/components/StructuredData";
+import { articleSchema } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: article.title,
     description: article.standfirst,
+    alternates: { canonical: `/blog/${article.slug}` },
     openGraph: { type: "article", title: article.title, description: article.standfirst },
   };
 }
@@ -30,6 +33,7 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <main id="blog-article" className="blog-view" aria-label="Article">
+      <StructuredData schemas={[articleSchema(article)]} />
       <div className="wrap">
         <Link className="back-link" href="/blog">
           <span aria-hidden="true">&larr;</span> All articles
@@ -42,6 +46,8 @@ export default async function ArticlePage({ params }: Props) {
             <h1 className="a-h1">{article.title}</h1>
             <p className="a-stand">{article.standfirst}</p>
             <div className="a-meta">
+              <span>By ICE Castle Infrastructure Team</span>
+              <span className="sep">/</span>
               <span>{article.date}</span>
               <span className="sep">/</span>
               <span>{article.readTime}</span>

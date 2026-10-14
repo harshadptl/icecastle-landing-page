@@ -7,6 +7,12 @@
   - Impact: +keyword relevance for pricing/infrastructure queries
   - URL: /blog
 
+- **b4bf56b** Added schema.org structured data (Organization, Product, FAQSchema)
+  - Added: JSON-LD schemas in `<head>` for search engine + AI assistant discovery
+  - Impact: Organization/Product metadata indexed by Google, ChatGPT, Claude, Perplexity; improved rich snippet potential; +AI answer citations
+  - Files: lib/structured-data.ts, components/StructuredData.tsx, app/layout.tsx
+  - Backlog item #1 (Setup priority)
+
 ---
 
 *This log tracks every SEO change shipped to the live site.*

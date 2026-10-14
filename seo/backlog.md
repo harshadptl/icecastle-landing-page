@@ -2,6 +2,23 @@
 
 Ordered by expected signups per hour of work. First three marked for Setup day (today).
 
+## SHIPPED
+
+### 2. ~~Create "ICE Castle vs CoreWeave vs AWS: GPU Capacity Comparison"~~ ✅
+
+Shipped 2026-10-13 as `/blog/reserved-vs-on-demand-gpu-pricing`. Scope shifted slightly from
+the original "feature grid vs named competitors" plan to a sourced pricing-landscape piece
+(CoreWeave/AWS/Lambda numbers, third-party aggregator data, utilization-is-the-real-variable
+argument) — named head-to-head "X vs Y" pages are now tracked separately under Monthly,
+item 3 (comparison pages), since those need per-competitor claims with individual sources
+and "as of" dates that are a bigger lift than one research pass covered.
+
+Internal links added (3, per the skill's new-page rule): `/blog` index (auto), the
+`commitment-question` → next-article chain link, and a contextual link from
+`baseload-vs-burst`.
+
+---
+
 ## SHIP TODAY (Setup Day - 2026-10-13)
 
 ### 1. Add Schema.org Structured Data to Homepage ⭐⭐⭐
@@ -18,24 +35,6 @@ Ordered by expected signups per hour of work. First three marked for Setup day (
 - `FAQSchema` for "What is ICE Castle?", "How much does it cost?", "Who should use it?"
 
 **Success:** AI answers mention ICE Castle by name + include the $5/GPU-hour claim with attribution. Google SERP shows rich snippet.
-
----
-
-### 2. Create "ICE Castle vs CoreWeave vs AWS: GPU Capacity Comparison" ⭐⭐⭐
-
-**Query:** "gpu capacity provider comparison", "coreweb vs aws", "alternatives to on-demand"
-**Page:** `/comparison` or `/vs`
-**Work:** 2–3 hours
-**Impact:** Buyers in evaluation stage land on a fair, detailed comparison. Ranks for 8+ comparison queries (current position: unranked).
-
-**What to write:**
-- Feature grid: pricing, commitment terms, support, availability, specialized workloads
-- Honest assessment: where CoreWeave wins, where AWS wins, where ICE Castle wins
-- Target queries: "CoreWeave vs AWS", "best GPU capacity provider 2026", "reserved GPU vs on-demand"
-
-**Format:** Blog post or subpage (route: `/blog/comparison-reserved-gpu` or `/vs`).
-
-**Success:** Ranks in top 5 for "GPU capacity comparison" (currently unranked). 40+ monthly organic visitors.
 
 ---
 

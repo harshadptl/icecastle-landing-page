@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 export type Article = {
   slug: string;
@@ -79,6 +80,7 @@ export const articles: Article[] = [
       <h2 className="b-h"><span className="hn">03 / HOW TO FIND YOUR BASELOAD</span></h2>
       <p>Look at the last 90 days of GPU-hours per week. Sort ascending. The average of the lowest quartile &mdash; or more conservatively, the 10th-percentile week &mdash; is a defensible estimate of your baseload. That&rsquo;s the compute that is, functionally, permanent. Everything above it is your burst budget.</p>
       <p>Two sanity checks: if your baseload estimate keeps rising month over month, that&rsquo;s demand growth you can actually plan around. And if no week in the last quarter dropped below the estimate, you can trust the number the way finance trusts it &mdash; as a line item, not a guess.</p>
+      <p>Before you lock in a rate for that baseload, it&rsquo;s worth knowing what the rest of the market is charging. We pulled the public numbers on <Link href="/blog/reserved-vs-on-demand-gpu-pricing">reserved vs. on-demand pricing across CoreWeave, AWS, and Lambda</Link> — including where the sources disagree.</p>
       <p className="a-close">Compute has the same profile as electricity: mostly steady, sometimes spiky. Price the steady part like it&rsquo;s steady. Keep the cloud for the storms. The 80/20 split isn&rsquo;t a theory &mdash; it&rsquo;s what your utilization chart already says, if you read it honestly.</p>
       </>
     ),
@@ -163,7 +165,7 @@ export const articles: Article[] = [
     standfirst: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
     date: "SEP 02, 2026",
     readTime: "5 MIN READ",
-    next: "gpu-bill-product-economics",
+    next: "reserved-vs-on-demand-gpu-pricing",
     body: (
       <>
       <p>&ldquo;Why would I commit for two years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>
@@ -195,6 +197,38 @@ export const articles: Article[] = [
       <p>Forget the spreadsheet for a minute. The rule: if month-18 demand feels like a forecast you would defend to your board, a commitment turns variable spend into a fixed line item at a lower rate. If it feels like a guess, keep the flexibility and revisit when the fog clears.</p>
       <p>Our job is to model the difference with your real numbers &mdash; and when the honest answer is &ldquo;not yet,&rdquo; to say so. The companies that commit when it fits tend to do it again. The ones that commit when it doesn&rsquo;t tend to tell everyone. We know which outcome gets chosen.</p>
       <p className="a-close">Long-term leasing isn&rsquo;t for everyone. For the fleet that&rsquo;s hot, growing, and production-proven, it&rsquo;s simply the arithmetic winning over habit. And when it doesn&rsquo;t make sense, the job of an infrastructure partner is to say that first.</p>
+      </>
+    ),
+  },
+  {
+    slug: "reserved-vs-on-demand-gpu-pricing",
+    index: "06",
+    title: "Reserved vs on-demand GPU pricing, sourced",
+    category: "Pricing, explained",
+    kicker: "Pricing, explained · 5 min read",
+    excerpt: "We pulled the public numbers on CoreWeave, AWS, and Lambda — then show why utilization, not sticker price, decides whether committing saves you money.",
+    standfirst: "We pulled the public numbers on CoreWeave, AWS, and Lambda — then show why utilization, not sticker price, decides whether committing saves you money.",
+    date: "OCT 13, 2026",
+    readTime: "5 MIN READ",
+    next: "gpu-bill-product-economics",
+    disclaimer: "* Competitor figures are third-party aggregator data (Holori, Devzero, Spheron Network), not official vendor price pages, captured October 2026. Sources disagree with each other, sometimes by double digits, and rates change by region, configuration and term. Confirm current pricing directly with each provider before budgeting. $5/hr is our own target/starting rate for qualifying long-term commitments, not a universal price.",
+    body: (
+      <>
+      <p>Reserved GPU capacity runs 20&ndash;60% cheaper than on-demand across every major provider we checked &mdash; but only if you actually keep the hardware busy. Here&rsquo;s what the market is charging, sourced, and the one number that decides whether a commitment is the right call for you.</p>
+      <h2 className="b-h"><span className="hn">01 / WHAT THE MARKET IS CHARGING, RIGHT NOW</span></h2>
+      <p>Third-party pricing trackers put an 8-GPU CoreWeave B200 node at roughly $68.80/hr &mdash; about $8.60 per GPU-hour on demand &mdash; with reserved contracts reported to discount up to 60% depending on term. AWS&rsquo;s P5 instances (8&times;H100) list around $55/hr on demand; aggregator snapshots show 1-year reserved pricing near $41&ndash;43/hr and 3-year terms closer to $24/hr, roughly 55&ndash;57% off sticker. Lambda Labs&rsquo; on-demand H100 pricing is the least consistent of the three &mdash; different trackers show anywhere from $2.49 to $4.29 per GPU-hour for the same instance class &mdash; with reserved discounts estimated, not officially published, at around 20% for one year and 26% for three.</p>
+      <aside className="pull-stat">
+        <div className="n">20&ndash;60%</div>
+        <div className="c">Reported discount range for reserved vs. on-demand GPU pricing across the providers we checked (CoreWeave, AWS, Lambda), per third-party aggregator data, October 2026.*</div>
+      </aside>
+      <p>None of this comes from the vendors&rsquo; own pricing pages &mdash; it&rsquo;s aggregator data, and the sources frequently disagree with each other by double digits. That disagreement is itself useful information: sticker price is a moving, contested target, and nobody &mdash; us included &mdash; publishes a single rate that survives six months unchanged. If a number matters to your budget, verify it directly with the provider before you model it.</p>
+      <h2 className="b-h"><span className="hn">02 / THE NUMBER THAT ACTUALLY DECIDES THE DEAL</span></h2>
+      <p>Sticker price isn&rsquo;t what decides reserved vs. on-demand &mdash; utilization is. One widely-cited 2026 analysis found that at 5% utilization, an AWS H100 billed at its on-demand rate effectively costs over $245 per <em>used</em> GPU-hour once idle time is counted against it. Reserved capacity only wins once you&rsquo;re running it most of the time, which is exactly the <Link href="/blog/baseload-vs-burst">baseload math</Link> we&rsquo;ve written about separately: the committed rate is a bet on your floor, not your ceiling.</p>
+      <h2 className="b-h"><span className="hn">03 / WHERE THAT LEAVES OUR ~$5/GPU-HOUR TARGET</span></h2>
+      <p>We&rsquo;re not claiming to be the cheapest line item on anyone&rsquo;s spreadsheet, and we don&rsquo;t publish a single sticker price &mdash; see <Link href="/blog/qualifying-deployments">what &ldquo;qualifying deployments&rdquo; actually means</Link> for why. What we can say: our ~$5/GPU-hour target for qualifying long-term commitments lands in roughly the same band as the deeper multi-year reserved tiers reported for H100-class capacity elsewhere in the market, and below most on-demand sticker rates for B200-class hardware. The number that applies to you depends on GPU type, node configuration, region, quantity and term &mdash; same as it does everywhere else.</p>
+      <h2 className="b-h"><span className="hn">04 / WHEN NONE OF THIS SHOULD MATTER TO YOU</span></h2>
+      <p>If your workload is still spiky, seasonal, or you&rsquo;re not yet sure it&rsquo;s staying at this size, none of the reserved rates above are the right comparison &mdash; stay on-demand or spot, and revisit <Link href="/blog/commitment-question">the commitment question</Link> once your utilization chart settles down.</p>
+      <p className="a-close">The honest version of this comparison isn&rsquo;t &ldquo;we&rsquo;re cheaper than CoreWeave&rdquo; or &ldquo;we&rsquo;re cheaper than AWS&rdquo; &mdash; none of us publish numbers stable enough to make that claim responsibly. It&rsquo;s that committed pricing, from any provider, only beats on-demand once your utilization crosses the line where flexibility stops being worth its premium.</p>
       </>
     ),
   },

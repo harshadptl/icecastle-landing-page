@@ -1,7 +1,7 @@
 query,intent,monthly_volume,difficulty,target_url,status,current_position
 how to reduce gpu costs,informational,220,30,/,gap,unranked
-gpu pricing comparison,informational,140,35,/,gap,unranked
-reserved gpu capacity,commercial,110,40,/,gap,unranked
+gpu pricing comparison,informational,140,35,/blog/reserved-vs-on-demand-gpu-pricing,live,unranked
+reserved gpu capacity,commercial,110,40,/blog/reserved-vs-on-demand-gpu-pricing,live,unranked
 gpu cost optimization,informational,90,25,/blog/gpu-bill-product-economics,gap,unranked
 gpu leasing long-term,commercial,70,38,/,gap,unranked
 nvidia b200 pricing,commercial,180,50,/,gap,unranked
@@ -10,7 +10,7 @@ gpu utilization vs cost,informational,50,22,/blog/baseload-vs-burst,gap,unranked
 dedicated gpu capacity,commercial,85,42,/,gap,unranked
 gpu commitment contract,commercial,45,35,/blog/commitment-question,gap,unranked
 sustained gpu workloads,informational,65,32,/blog/operating-infrastructure,gap,unranked
-on-demand vs reserved gpu,commercial,95,40,/,gap,unranked
+on-demand vs reserved gpu,commercial,95,40,/blog/reserved-vs-on-demand-gpu-pricing,live,unranked
 best gpu provider for ai,commercial,120,45,/,gap,unranked
 coreweb alternatives,commercial,40,38,/,gap,unranked
 lambda labs vs alternatives,commercial,35,40,/,gap,unranked
@@ -24,3 +24,4 @@ qualifying deployments meaning,informational,20,25,/blog/qualifying-deployments,
 icecastle gpu,branded,25,15,/,live,unranked
 icecastle ai,branded,15,14,/,live,unranked
 gpu baseload vs burst,informational,45,28,/blog/baseload-vs-burst,live,unranked
+coreweave aws lambda pricing,commercial,60,33,/blog/reserved-vs-on-demand-gpu-pricing,live,unranked

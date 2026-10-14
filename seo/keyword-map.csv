@@ -4,7 +4,7 @@ gpu pricing comparison,informational,140,35,/blog/reserved-vs-on-demand-gpu-pric
 reserved gpu capacity,commercial,110,40,/blog/reserved-vs-on-demand-gpu-pricing,live,unranked
 gpu cost optimization,informational,90,25,/blog/gpu-bill-product-economics,gap,unranked
 gpu leasing long-term,commercial,70,38,/,gap,unranked
-nvidia b200 pricing,commercial,180,50,/,gap,unranked
+nvidia b200 pricing,commercial,180,50,/blog/b200-vs-b300,live,unranked
 ai infrastructure costs,informational,160,28,/,gap,unranked
 gpu utilization vs cost,informational,50,22,/blog/baseload-vs-burst,gap,unranked
 dedicated gpu capacity,commercial,85,42,/,gap,unranked
@@ -25,3 +25,5 @@ icecastle gpu,branded,25,15,/,live,unranked
 icecastle ai,branded,15,14,/,live,unranked
 gpu baseload vs burst,informational,45,28,/blog/baseload-vs-burst,live,unranked
 coreweave aws lambda pricing,commercial,60,33,/blog/reserved-vs-on-demand-gpu-pricing,live,unranked
+b200 vs b300,commercial,90,36,/blog/b200-vs-b300,live,unranked
+b200 b300 specifications,informational,55,30,/blog/b200-vs-b300,live,unranked

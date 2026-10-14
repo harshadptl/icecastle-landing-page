@@ -17,6 +17,28 @@ Internal links added (3, per the skill's new-page rule): `/blog` index (auto), t
 `commitment-question` → next-article chain link, and a contextual link from
 `baseload-vs-burst`.
 
+### 3. ~~Create "B200/B300 GPU Pricing & Specs" Guide~~ ✅
+
+Shipped 2026-10-13 as `/blog/b200-vs-b300`. Specs sourced from public GPU trackers
+(DataCrunch, Civo, TechLoy, Deploybase, SemiAnalysis) with explicit disclaimer that these
+aren't NVIDIA's own datasheet numbers and sources disagree on exact figures. Pricing
+section stays qualitative (checked for a B300-over-B200 premium figure; aggregator data
+ranged from near-parity to ~2x depending on provider — too wide to state as one number, so
+left it as a range with a pointer to the pricing article instead of inventing a blended
+average).
+
+Internal links added (4): `/blog` index (auto), `commitment-question` → next-article chain,
+a contextual link from `qualifying-deployments` (GPU type variable), and a link from the
+homepage's `#gpus` section — the first new-page link placed on `/` itself.
+
+**Also fixed while shipping this:** the previous article (`reserved-vs-on-demand-gpu-pricing`)
+had been appended to the *end* of the `articles` array, which put it at the bottom of
+`/blog` despite being the newest post — the array order is what drives display order, and the
+existing convention is newest-first. Reordered the array and renumbered all `index` fields;
+fixed the `next` ring to match (now: b200-vs-b300 → reserved-vs-on-demand-gpu-pricing →
+gpu-bill-product-economics → baseload-vs-burst → qualifying-deployments →
+operating-infrastructure → commitment-question → back to b200-vs-b300).
+
 ---
 
 ## SHIP TODAY (Setup Day - 2026-10-13)
@@ -35,25 +57,6 @@ Internal links added (3, per the skill's new-page rule): `/blog` index (auto), t
 - `FAQSchema` for "What is ICE Castle?", "How much does it cost?", "Who should use it?"
 
 **Success:** AI answers mention ICE Castle by name + include the $5/GPU-hour claim with attribution. Google SERP shows rich snippet.
-
----
-
-### 3. Create "B200/B300 GPU Pricing & Specs" Guide ⭐⭐⭐
-
-**Query:** "nvidia b200 pricing", "b200 vs b300", "b200 specifications"
-**Page:** `/blog/b200-b300-guide` or `/gpus` (subpage)
-**Work:** 1.5–2 hours
-**Impact:** Ranks for 5+ product-specific queries (180 monthly searches for "nvidia b200 pricing" alone).
-
-**What to write:**
-- B200 vs B300 specs comparison (performance, memory, interconnect, use cases)
-- Price per GPU per hour (illustrative ~$5 vs typical ~$10 on-demand)
-- Which model for which workload (inference vs training vs multimodal)
-- Link to quote form for "check pricing" CTA
-
-**Format:** Blog post (fits editorial style).
-
-**Success:** Ranks in top 10 for "nvidia b200 pricing" and "b300 specifications." 25+ monthly visitors.
 
 ---
 

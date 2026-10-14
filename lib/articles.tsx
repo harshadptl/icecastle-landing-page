@@ -19,8 +19,76 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "gpu-bill-product-economics",
+    slug: "b200-vs-b300",
     index: "01",
+    title: "B200 vs B300: which GPU fits your workload",
+    category: "Hardware, explained",
+    kicker: "Hardware, explained · 4 min read",
+    excerpt: "Same generation, different memory ceiling. The spec gap between B200 and B300 — and which workloads actually need the upgrade.",
+    standfirst: "Same generation, different memory ceiling. The spec gap between B200 and B300 — and which workloads actually need the upgrade.",
+    date: "OCT 13, 2026",
+    readTime: "4 MIN READ",
+    next: "reserved-vs-on-demand-gpu-pricing",
+    disclaimer: "* Specs are compiled from public GPU comparison trackers (DataCrunch, Civo, TechLoy, Deploybase, SemiAnalysis), not NVIDIA's own datasheets, and sources disagree on several exact figures — treat the direction (more memory, more power, more low-precision throughput on the B300) as the reliable part. Confirm exact numbers against NVIDIA's Blackwell datasheet before specifying a deployment.",
+    body: (
+      <>
+      <p>If your workload is memory-bound &mdash; long-context reasoning, mixture-of-experts, high-concurrency production inference &mdash; the B300 is built for you. Everything else usually runs just as well, and cheaper per GPU-hour, on the B200.</p>
+      <h2 className="b-h"><span className="hn">01 / THE SPEC GAP IS MOSTLY MEMORY</span></h2>
+      <p>Most public trackers put the B300 (Blackwell Ultra) at roughly 288GB of HBM3e per GPU &mdash; about 50% more than the B200&rsquo;s 192GB. That memory step-up is the one figure nearly every source agrees on; bandwidth and raw FLOPS numbers vary more by tracker. On low-precision (FP4) compute, most trackers report the B300 running 30&ndash;50% faster than the B200; FP8 throughput comparisons are less consistent across sources. Power draw follows the same direction: the B200 is usually listed around 1,000W, while B300 listings range from 1,100W to 1,400W depending on the source &mdash; so a B300 deployment generally asks for more power and cooling headroom per node.</p>
+      <aside className="pull-stat">
+        <div className="n">288GB vs 192GB</div>
+        <div className="c">HBM3e memory per GPU, B300 vs B200 &mdash; roughly a 50% step up, per public GPU comparison trackers, October 2026.*</div>
+      </aside>
+      <h2 className="b-h"><span className="hn">02 / WHICH ONE FITS YOUR WORKLOAD</span></h2>
+      <p>The honest answer is: most workloads don&rsquo;t need the B300. It earns its keep specifically where memory capacity is the bottleneck, not raw compute.</p>
+      <ul className="a-list">
+        <li><span className="mk">B2</span><span><strong>B200 fits:</strong> pretraining, fine-tuning, high-throughput inference, and standard-context RAG &mdash; workloads that aren&rsquo;t memory-bound. Generally the lower cost per GPU-hour of the two, with a smaller power and cooling footprint per node.</span></li>
+        <li><span className="mk">B3</span><span><strong>B300 fits:</strong> long chain-of-thought reasoning, large-context RAG, mixture-of-experts architectures, and high-concurrency production inference &mdash; plus training runs where big activation tensors or gradient accumulation push against memory limits.</span></li>
+      </ul>
+      <p>Mapped against the workloads we see most: video generation and multimodal pipelines tend to push into B300 territory because of how much context and intermediate state they hold in memory. Standard LLM inference and routine fine-tuning usually run fine on a B200 unless your context windows or concurrency are unusually high.</p>
+      <h2 className="b-h"><span className="hn">03 / THE PRICING PICTURE</span></h2>
+      <p>B300 capacity generally prices at a premium over B200 given the memory and power step-up, but the spread we found across public trackers was wide &mdash; anywhere from roughly at-parity to nearly double, depending on provider and tier, and still settling as B300 supply ramps through 2026. We wrote up the sourced detail on <Link href="/blog/reserved-vs-on-demand-gpu-pricing">what the broader GPU market is charging</Link> if you want the numbers behind that range. Confirm the current spread for your deployment with your quote &mdash; we won&rsquo;t ballpark a number we can&rsquo;t stand behind.</p>
+      <h2 className="b-h"><span className="hn">04 / HOW TO SPECIFY YOUR DEPLOYMENT</span></h2>
+      <p>GPU type is the first of the five variables that move your real rate &mdash; see <Link href="/blog/qualifying-deployments">what &ldquo;qualifying deployments&rdquo; actually means</Link> for the rest. When you request a quote, tell us your context length, concurrency, and whether your pipeline is memory- or compute-bound; that&rsquo;s usually enough for us to tell you which chip actually fits, instead of defaulting you to whichever one we have more of.</p>
+      <p className="a-close">The B300 isn&rsquo;t a strictly-better B200 &mdash; it&rsquo;s a different trade, and it costs more to make. Spend the extra only where memory is actually your bottleneck. For everything else, the B200 is the workhorse for a reason.</p>
+      </>
+    ),
+  },
+  {
+    slug: "reserved-vs-on-demand-gpu-pricing",
+    index: "02",
+    title: "Reserved vs on-demand GPU pricing, sourced",
+    category: "Pricing, explained",
+    kicker: "Pricing, explained · 5 min read",
+    excerpt: "We pulled the public numbers on CoreWeave, AWS, and Lambda — then show why utilization, not sticker price, decides whether committing saves you money.",
+    standfirst: "We pulled the public numbers on CoreWeave, AWS, and Lambda — then show why utilization, not sticker price, decides whether committing saves you money.",
+    date: "OCT 13, 2026",
+    readTime: "5 MIN READ",
+    next: "gpu-bill-product-economics",
+    disclaimer: "* Competitor figures are third-party aggregator data (Holori, Devzero, Spheron Network), not official vendor price pages, captured October 2026. Sources disagree with each other, sometimes by double digits, and rates change by region, configuration and term. Confirm current pricing directly with each provider before budgeting. $5/hr is our own target/starting rate for qualifying long-term commitments, not a universal price.",
+    body: (
+      <>
+      <p>Reserved GPU capacity runs 20&ndash;60% cheaper than on-demand across every major provider we checked &mdash; but only if you actually keep the hardware busy. Here&rsquo;s what the market is charging, sourced, and the one number that decides whether a commitment is the right call for you.</p>
+      <h2 className="b-h"><span className="hn">01 / WHAT THE MARKET IS CHARGING, RIGHT NOW</span></h2>
+      <p>Third-party pricing trackers put an 8-GPU CoreWeave B200 node at roughly $68.80/hr &mdash; about $8.60 per GPU-hour on demand &mdash; with reserved contracts reported to discount up to 60% depending on term. AWS&rsquo;s P5 instances (8&times;H100) list around $55/hr on demand; aggregator snapshots show 1-year reserved pricing near $41&ndash;43/hr and 3-year terms closer to $24/hr, roughly 55&ndash;57% off sticker. Lambda Labs&rsquo; on-demand H100 pricing is the least consistent of the three &mdash; different trackers show anywhere from $2.49 to $4.29 per GPU-hour for the same instance class &mdash; with reserved discounts estimated, not officially published, at around 20% for one year and 26% for three.</p>
+      <aside className="pull-stat">
+        <div className="n">20&ndash;60%</div>
+        <div className="c">Reported discount range for reserved vs. on-demand GPU pricing across the providers we checked (CoreWeave, AWS, Lambda), per third-party aggregator data, October 2026.*</div>
+      </aside>
+      <p>None of this comes from the vendors&rsquo; own pricing pages &mdash; it&rsquo;s aggregator data, and the sources frequently disagree with each other by double digits. That disagreement is itself useful information: sticker price is a moving, contested target, and nobody &mdash; us included &mdash; publishes a single rate that survives six months unchanged. If a number matters to your budget, verify it directly with the provider before you model it.</p>
+      <h2 className="b-h"><span className="hn">02 / THE NUMBER THAT ACTUALLY DECIDES THE DEAL</span></h2>
+      <p>Sticker price isn&rsquo;t what decides reserved vs. on-demand &mdash; utilization is. One widely-cited 2026 analysis found that at 5% utilization, an AWS H100 billed at its on-demand rate effectively costs over $245 per <em>used</em> GPU-hour once idle time is counted against it. Reserved capacity only wins once you&rsquo;re running it most of the time, which is exactly the <Link href="/blog/baseload-vs-burst">baseload math</Link> we&rsquo;ve written about separately: the committed rate is a bet on your floor, not your ceiling.</p>
+      <h2 className="b-h"><span className="hn">03 / WHERE THAT LEAVES OUR ~$5/GPU-HOUR TARGET</span></h2>
+      <p>We&rsquo;re not claiming to be the cheapest line item on anyone&rsquo;s spreadsheet, and we don&rsquo;t publish a single sticker price &mdash; see <Link href="/blog/qualifying-deployments">what &ldquo;qualifying deployments&rdquo; actually means</Link> for why. What we can say: our ~$5/GPU-hour target for qualifying long-term commitments lands in roughly the same band as the deeper multi-year reserved tiers reported for H100-class capacity elsewhere in the market, and below most on-demand sticker rates for B200-class hardware. The number that applies to you depends on GPU type, node configuration, region, quantity and term &mdash; same as it does everywhere else.</p>
+      <h2 className="b-h"><span className="hn">04 / WHEN NONE OF THIS SHOULD MATTER TO YOU</span></h2>
+      <p>If your workload is still spiky, seasonal, or you&rsquo;re not yet sure it&rsquo;s staying at this size, none of the reserved rates above are the right comparison &mdash; stay on-demand or spot, and revisit <Link href="/blog/commitment-question">the commitment question</Link> once your utilization chart settles down.</p>
+      <p className="a-close">The honest version of this comparison isn&rsquo;t &ldquo;we&rsquo;re cheaper than CoreWeave&rdquo; or &ldquo;we&rsquo;re cheaper than AWS&rdquo; &mdash; none of us publish numbers stable enough to make that claim responsibly. It&rsquo;s that committed pricing, from any provider, only beats on-demand once your utilization crosses the line where flexibility stops being worth its premium.</p>
+      </>
+    ),
+  },
+  {
+    slug: "gpu-bill-product-economics",
+    index: "03",
     title: "Your GPU bill is part of your product economics",
     category: "Unit economics",
     kicker: "Unit economics · 4 min read",
@@ -54,7 +122,7 @@ export const articles: Article[] = [
   },
   {
     slug: "baseload-vs-burst",
-    index: "02",
+    index: "04",
     title: "Baseload vs burst: the 80/20 of GPU infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 4 min read",
@@ -87,7 +155,7 @@ export const articles: Article[] = [
   },
   {
     slug: "qualifying-deployments",
-    index: "03",
+    index: "05",
     title: "What ‘qualifying deployments’ actually means",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -108,7 +176,7 @@ export const articles: Article[] = [
       <h2 className="b-h"><span className="hn">01 / THE FIVE THINGS THAT MOVE THE NUMBER</span></h2>
       <p>Five variables dominate real pricing. In order of impact:</p>
       <ul className="a-list">
-        <li><span className="mk">01</span><span><strong>GPU type.</strong> A B300 is more compute than a B200 &mdash; more memory, more throughput, denser deployments. The target rate is tiered by the silicon your workload is built on, not blended into one fictional number.</span></li>
+        <li><span className="mk">01</span><span><strong>GPU type.</strong> A B300 is more compute than a B200 &mdash; more memory, more throughput, denser deployments. The target rate is tiered by the silicon your workload is built on, not blended into one fictional number. See our <Link href="/blog/b200-vs-b300">B200 vs B300 breakdown</Link> if you&rsquo;re not sure which one your workload needs.</span></li>
         <li><span className="mk">02</span><span><strong>Node configuration.</strong> Full 8&times;GPU nodes with high-bandwidth interconnect price differently from smaller builds. The spec we&rsquo;d sign gets quoted against the spec you actually need &mdash; no paying for a node you wouldn&rsquo;t run.</span></li>
         <li><span className="mk">03</span><span><strong>Quantity.</strong> Larger fleets price better per unit: deployment and networking costs amortize over more GPUs. Single-digit GPUss rarely clear the &ldquo;qualifying&rdquo; bar for the target rate.</span></li>
         <li><span className="mk">04</span><span><strong>Region.</strong> Power, cooling, datacenter availability and networking differ by region, and pricing follows the real deployment geography &mdash; wherever your capacity is actually secured.</span></li>
@@ -125,7 +193,7 @@ export const articles: Article[] = [
   },
   {
     slug: "operating-infrastructure",
-    index: "04",
+    index: "06",
     title: "If you run GPUs 24/7, you’re operating infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 3 min read",
@@ -157,7 +225,7 @@ export const articles: Article[] = [
   },
   {
     slug: "commitment-question",
-    index: "05",
+    index: "07",
     title: "The 1–2 year commitment question, answered honestly",
     category: "Honest answers",
     kicker: "Honest answers · 5 min read",
@@ -165,7 +233,7 @@ export const articles: Article[] = [
     standfirst: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
     date: "SEP 02, 2026",
     readTime: "5 MIN READ",
-    next: "reserved-vs-on-demand-gpu-pricing",
+    next: "b200-vs-b300",
     body: (
       <>
       <p>&ldquo;Why would I commit for two years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>
@@ -197,38 +265,6 @@ export const articles: Article[] = [
       <p>Forget the spreadsheet for a minute. The rule: if month-18 demand feels like a forecast you would defend to your board, a commitment turns variable spend into a fixed line item at a lower rate. If it feels like a guess, keep the flexibility and revisit when the fog clears.</p>
       <p>Our job is to model the difference with your real numbers &mdash; and when the honest answer is &ldquo;not yet,&rdquo; to say so. The companies that commit when it fits tend to do it again. The ones that commit when it doesn&rsquo;t tend to tell everyone. We know which outcome gets chosen.</p>
       <p className="a-close">Long-term leasing isn&rsquo;t for everyone. For the fleet that&rsquo;s hot, growing, and production-proven, it&rsquo;s simply the arithmetic winning over habit. And when it doesn&rsquo;t make sense, the job of an infrastructure partner is to say that first.</p>
-      </>
-    ),
-  },
-  {
-    slug: "reserved-vs-on-demand-gpu-pricing",
-    index: "06",
-    title: "Reserved vs on-demand GPU pricing, sourced",
-    category: "Pricing, explained",
-    kicker: "Pricing, explained · 5 min read",
-    excerpt: "We pulled the public numbers on CoreWeave, AWS, and Lambda — then show why utilization, not sticker price, decides whether committing saves you money.",
-    standfirst: "We pulled the public numbers on CoreWeave, AWS, and Lambda — then show why utilization, not sticker price, decides whether committing saves you money.",
-    date: "OCT 13, 2026",
-    readTime: "5 MIN READ",
-    next: "gpu-bill-product-economics",
-    disclaimer: "* Competitor figures are third-party aggregator data (Holori, Devzero, Spheron Network), not official vendor price pages, captured October 2026. Sources disagree with each other, sometimes by double digits, and rates change by region, configuration and term. Confirm current pricing directly with each provider before budgeting. $5/hr is our own target/starting rate for qualifying long-term commitments, not a universal price.",
-    body: (
-      <>
-      <p>Reserved GPU capacity runs 20&ndash;60% cheaper than on-demand across every major provider we checked &mdash; but only if you actually keep the hardware busy. Here&rsquo;s what the market is charging, sourced, and the one number that decides whether a commitment is the right call for you.</p>
-      <h2 className="b-h"><span className="hn">01 / WHAT THE MARKET IS CHARGING, RIGHT NOW</span></h2>
-      <p>Third-party pricing trackers put an 8-GPU CoreWeave B200 node at roughly $68.80/hr &mdash; about $8.60 per GPU-hour on demand &mdash; with reserved contracts reported to discount up to 60% depending on term. AWS&rsquo;s P5 instances (8&times;H100) list around $55/hr on demand; aggregator snapshots show 1-year reserved pricing near $41&ndash;43/hr and 3-year terms closer to $24/hr, roughly 55&ndash;57% off sticker. Lambda Labs&rsquo; on-demand H100 pricing is the least consistent of the three &mdash; different trackers show anywhere from $2.49 to $4.29 per GPU-hour for the same instance class &mdash; with reserved discounts estimated, not officially published, at around 20% for one year and 26% for three.</p>
-      <aside className="pull-stat">
-        <div className="n">20&ndash;60%</div>
-        <div className="c">Reported discount range for reserved vs. on-demand GPU pricing across the providers we checked (CoreWeave, AWS, Lambda), per third-party aggregator data, October 2026.*</div>
-      </aside>
-      <p>None of this comes from the vendors&rsquo; own pricing pages &mdash; it&rsquo;s aggregator data, and the sources frequently disagree with each other by double digits. That disagreement is itself useful information: sticker price is a moving, contested target, and nobody &mdash; us included &mdash; publishes a single rate that survives six months unchanged. If a number matters to your budget, verify it directly with the provider before you model it.</p>
-      <h2 className="b-h"><span className="hn">02 / THE NUMBER THAT ACTUALLY DECIDES THE DEAL</span></h2>
-      <p>Sticker price isn&rsquo;t what decides reserved vs. on-demand &mdash; utilization is. One widely-cited 2026 analysis found that at 5% utilization, an AWS H100 billed at its on-demand rate effectively costs over $245 per <em>used</em> GPU-hour once idle time is counted against it. Reserved capacity only wins once you&rsquo;re running it most of the time, which is exactly the <Link href="/blog/baseload-vs-burst">baseload math</Link> we&rsquo;ve written about separately: the committed rate is a bet on your floor, not your ceiling.</p>
-      <h2 className="b-h"><span className="hn">03 / WHERE THAT LEAVES OUR ~$5/GPU-HOUR TARGET</span></h2>
-      <p>We&rsquo;re not claiming to be the cheapest line item on anyone&rsquo;s spreadsheet, and we don&rsquo;t publish a single sticker price &mdash; see <Link href="/blog/qualifying-deployments">what &ldquo;qualifying deployments&rdquo; actually means</Link> for why. What we can say: our ~$5/GPU-hour target for qualifying long-term commitments lands in roughly the same band as the deeper multi-year reserved tiers reported for H100-class capacity elsewhere in the market, and below most on-demand sticker rates for B200-class hardware. The number that applies to you depends on GPU type, node configuration, region, quantity and term &mdash; same as it does everywhere else.</p>
-      <h2 className="b-h"><span className="hn">04 / WHEN NONE OF THIS SHOULD MATTER TO YOU</span></h2>
-      <p>If your workload is still spiky, seasonal, or you&rsquo;re not yet sure it&rsquo;s staying at this size, none of the reserved rates above are the right comparison &mdash; stay on-demand or spot, and revisit <Link href="/blog/commitment-question">the commitment question</Link> once your utilization chart settles down.</p>
-      <p className="a-close">The honest version of this comparison isn&rsquo;t &ldquo;we&rsquo;re cheaper than CoreWeave&rdquo; or &ldquo;we&rsquo;re cheaper than AWS&rdquo; &mdash; none of us publish numbers stable enough to make that claim responsibly. It&rsquo;s that committed pricing, from any provider, only beats on-demand once your utilization crosses the line where flexibility stops being worth its premium.</p>
       </>
     ),
   },

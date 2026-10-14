@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Calculator from "@/components/Calculator";
 import QuoteForm from "@/components/QuoteForm";
 
@@ -110,6 +111,9 @@ export default function HomePage() {
               </ul>
             </div>
           </div>
+          <p className="lede reveal">
+            Not sure which one fits your workload? <Link href="/blog/b200-vs-b300">Compare B200 vs B300 specs and fit &rarr;</Link>
+          </p>
           <div className="deployment-proof reveal">
             <h3>Confirm these in the written offer</h3>
             <div className="trust-grid">

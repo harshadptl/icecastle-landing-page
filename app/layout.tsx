@@ -3,6 +3,7 @@ import { Inter, Manrope, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SiteEffects from "@/components/SiteEffects";
+import StructuredData from "@/components/StructuredData";
 import "./globals.css";
 
 const inter = Inter({
@@ -44,6 +45,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${manrope.variable} ${plexMono.variable}`}>
+      <head>
+        <StructuredData />
+      </head>
       <body>
         <Nav />
         {children}

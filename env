@@ -1,0 +1,6 @@
+# Supabase project URL (Project Settings → API)
+SUPABASE_URL=https://spjlfrjslkgqodsnlxij.supabase.co
+
+# Server-only key with insert rights. Use the service_role key or a new
+# "secret" key (sb_secret_...). NEVER prefix this with NEXT_PUBLIC_.
+SUPABASE_SERVICE_ROLE_KEY=sb_publishable_N1FzrBWbm6x0fH-Rdyc0Hw_GwVX_tKs

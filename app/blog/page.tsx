@@ -3,7 +3,7 @@ import Link from "next/link";
 import { articles } from "@/lib/articles";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "GPU Pricing & Infrastructure Blog",
   description:
     "Pricing mechanics, infrastructure strategy, and honest answers — written for the people who sign the compute bills.",
 };

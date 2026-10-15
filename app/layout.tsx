@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Manrope, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -58,6 +59,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${manrope.variable} ${plexMono.variable}`}>
       <head>
         <StructuredData schemas={[organizationSchema]} />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TFKRBRNLX6"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TFKRBRNLX6');`}
+        </Script>
       </head>
       <body>
         <Nav />

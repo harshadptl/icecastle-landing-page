@@ -19,8 +19,54 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "b200-vs-b300",
+    slug: "glm-legal-private-law-firm",
     index: "01",
+    title: "GLM-Legal on private GPUs: a 100-person law firm plan",
+    category: "AI, deployed",
+    kicker: "AI, deployed · 5 min read",
+    excerpt: "Z.ai's new legal model is a real step forward. Here's how a 100-person firm can run frontier-class legal AI on two private B200 nodes, at a fixed monthly cost.",
+    standfirst: "Z.ai's new legal model is a real step forward. Here's how a 100-person firm can run frontier-class legal AI on two private B200 nodes, at a fixed monthly cost.",
+    date: "OCT 14, 2026",
+    readTime: "5 MIN READ",
+    next: "b200-vs-b300",
+    disclaimer: "* GLM-Legal details come from Z.ai's October 12, 2026 announcement and independent coverage (Vals AI, AlphaSignal, eesel), checked October 14, 2026. As of that date GLM-Legal was a gated API beta with no published weights, license, or on-premises option; the open base model, GLM-5.3-Flash, is MIT-licensed. Cost figures are illustrative: 16 GPUs at our ~$5/GPU-hour target for qualifying 36-month commitments, running 730 hours a month, plus a $20,000 one-time setup and $5,000/month support. Your quote depends on GPU type, configuration, region and term.",
+    body: (
+      <>
+      <p>A law firm can now run frontier-class legal AI entirely on hardware it controls. Two 8&times;B200 nodes host the model, client documents never leave your environment, and the bill is a fixed number you know three years ahead. Z.ai&rsquo;s new GLM-Legal is the clearest sign yet of where this is going.</p>
+      <h2 className="b-h"><span className="hn">01 / WHAT GLM-LEGAL IS</span></h2>
+      <p>On October 12, 2026, Z.ai released <a href="https://z.ai/blog/glm-legal" rel="noopener">GLM-Legal</a>, a model trained for the work lawyers actually do: contract review, evidence analysis, and cross-border compliance research. Z.ai built it on GLM-5.3-Flash, a mixture-of-experts model with 320B total parameters (18B active per token) and a 1M-token context window. Z.ai continued its training on legal material, then added reinforcement learning. Z.ai&rsquo;s demos show it marking up a Word contract with tracked changes, building a cited timeline across 40 documents, and drafting a privacy-compliance plan covering three countries.</p>
+      <aside className="pull-stat">
+        <div className="n">6.7% &rarr; 19.2%</div>
+        <div className="c">Score on Harvey&rsquo;s Legal Agent Benchmark, base model vs. GLM-Legal. Vals AI ranked it 7th of 79 models on that benchmark and 14th of 150 on LegalBench.*</div>
+      </aside>
+      <p>Tripling an agentic legal score is real progress, and it&rsquo;s fair to be excited about it. Read it with perspective, though. Even the best models finish only a minority of these long, multi-step tasks without help. Vals also measured a small drop on Legal Research Bench against the base model (41.83% vs. 45.19%). This is a capable associate&rsquo;s first draft, not a partner&rsquo;s sign-off, and it gives your lawyers more time for the work only they can do.</p>
+      <h2 className="b-h"><span className="hn">02 / WHY PRIVATE MATTERS MORE FOR LAW</span></h2>
+      <p>Privilege, confidentiality and client consent make sending matter files to a shared public API a hard conversation for most firms. When the model runs on dedicated nodes inside your own security boundary, that conversation gets simpler: prompts, documents, outputs and logs stay in your environment, your retention policy decides what is kept, and your audit trail shows who saw what.</p>
+      <p>One honest caveat: on launch day GLM-Legal is a gated API beta, and Z.ai has not yet published weights, a license, or an on-premises option. The base model, GLM-5.3-Flash, is already open under an MIT license. So the sensible plan has two stages:</p>
+      <ul className="a-list">
+        <li><span className="mk">01</span><span><strong>Start private now:</strong> deploy open GLM-5.3-Flash on your own nodes, build the document pipelines, permissions and review workflows, and get your lawyers using it on real matters.</span></li>
+        <li><span className="mk">02</span><span><strong>Upgrade later:</strong> apply to Z.ai as a design partner and ask about private-deployment terms for GLM-Legal. If a self-hosted version becomes available, it is built on the same base model, so it replaces the old one in the stack you already run.</span></li>
+      </ul>
+      <h2 className="b-h"><span className="hn">03 / WHY TWO 8&times;B200 NODES</span></h2>
+      <p>At 16-bit precision, a 320B-parameter model needs roughly 640GB just for its weights. One 8&times;B200 node has about 1.5TB of HBM, so the model fits on a single node with plenty of memory left for the long contexts legal work demands: whole contracts, data rooms, deposition transcripts. Because only 18B parameters are active per token, it also responds quickly enough for many people to use at once.</p>
+      <p>The second node turns a single server into a production service. It gives you failover when one node is under maintenance, room for a busy Monday morning when half the firm is drafting at once, and space to test a new model version without taking the current one offline. For 100 employees, where far fewer than 100 are prompting at any given second, two nodes is a comfortable fit. If your workloads lean on very long contexts, see <Link href="/blog/b200-vs-b300">when the B300 is worth the upgrade</Link>.</p>
+      <h2 className="b-h"><span className="hn">04 / WHAT IT COSTS, IN PLAIN NUMBERS</span></h2>
+      <p>The deal has three parts. A one-time $20,000 inference setup (model serving, document ingestion, single sign-on, logging). A flat $5,000 a month for support. And a 36-month lease on the 16 GPUs. At our ~$5/GPU-hour target for qualifying long-term commitments, the lease runs about $58,400 a month.</p>
+      <aside className="pull-stat">
+        <div className="n">~$634 / person / month</div>
+        <div className="c">$58,400 GPU lease + $5,000 support, spread across 100 employees. The $20,000 setup adds about $6 per person per month over three years.*</div>
+      </aside>
+      <p>Over the full term that comes to about $2.3M, or roughly $64,000 a month with the setup amortized. Usage doesn&rsquo;t change that number. A model running on your own nodes has no per-token meter, so an associate summarizing 400 documents at 2 a.m. costs the same as one who never logs in. That fixed-bill logic is what <Link href="/blog/baseload-vs-burst">baseload economics</Link> is about: a firm-wide assistant that is busy all day is exactly the workload that should run on committed capacity.</p>
+      <p>Is it worth it? For most firms, recovering even an hour or two of billable capacity per lawyer each month covers it. Whether your firm gets there depends on adoption, and that is a matter of workflow and training as much as hardware.</p>
+      <h2 className="b-h"><span className="hn">05 / HOW TO GET STARTED</span></h2>
+      <p>Pick two or three high-volume workflows to begin with: first-pass contract review, building chronologies from discovery documents, and compliance questions across jurisdictions. Define what &ldquo;good&rdquo; looks like with the partners who own those matters, and keep a lawyer reviewing every output. When you <Link href="/#quote">request a quote</Link>, tell us your headcount, document volumes and confidentiality requirements, and we&rsquo;ll size the deployment honestly. That includes telling you if one node is enough.</p>
+      <p className="a-close">Legal AI is getting better fast, and private infrastructure means a firm doesn&rsquo;t have to choose between the best models and its duty of confidentiality. Two nodes, one fixed bill, and your clients&rsquo; files stay on hardware you control.</p>
+      </>
+    ),
+  },
+  {
+    slug: "b200-vs-b300",
+    index: "02",
     title: "B200 vs B300: which GPU fits your workload",
     category: "Hardware, explained",
     kicker: "Hardware, explained · 4 min read",
@@ -56,7 +102,7 @@ export const articles: Article[] = [
   },
   {
     slug: "reserved-vs-on-demand-gpu-pricing",
-    index: "02",
+    index: "03",
     title: "Reserved vs on-demand GPU pricing, sourced",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -88,7 +134,7 @@ export const articles: Article[] = [
   },
   {
     slug: "gpu-bill-product-economics",
-    index: "03",
+    index: "04",
     title: "Your GPU bill is part of your product economics",
     category: "Unit economics",
     kicker: "Unit economics · 4 min read",
@@ -122,7 +168,7 @@ export const articles: Article[] = [
   },
   {
     slug: "baseload-vs-burst",
-    index: "04",
+    index: "05",
     title: "Baseload vs burst: the 80/20 of GPU infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 4 min read",
@@ -155,7 +201,7 @@ export const articles: Article[] = [
   },
   {
     slug: "qualifying-deployments",
-    index: "05",
+    index: "06",
     title: "What ‘qualifying deployments’ actually means",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -193,7 +239,7 @@ export const articles: Article[] = [
   },
   {
     slug: "operating-infrastructure",
-    index: "06",
+    index: "07",
     title: "If you run GPUs 24/7, you’re operating infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 3 min read",
@@ -225,7 +271,7 @@ export const articles: Article[] = [
   },
   {
     slug: "commitment-question",
-    index: "07",
+    index: "08",
     title: "The 3-year commitment question, answered honestly",
     category: "Honest answers",
     kicker: "Honest answers · 5 min read",
@@ -233,7 +279,7 @@ export const articles: Article[] = [
     standfirst: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
     date: "SEP 02, 2026",
     readTime: "5 MIN READ",
-    next: "b200-vs-b300",
+    next: "glm-legal-private-law-firm",
     body: (
       <>
       <p>&ldquo;Why would I commit for three years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>

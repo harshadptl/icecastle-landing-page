@@ -34,7 +34,15 @@ export const metadata: Metadata = {
   },
   description:
     "ICE Castle reserves NVIDIA B200/B300 GPUs for sustained AI workloads at a ~$5/GPU-hour target on 36-month terms, vs ~$10 typical on-demand.",
-  openGraph: { siteName: "ICE Castle", type: "website" },
+  openGraph: {
+    siteName: "ICE Castle",
+    type: "website",
+    images: [{ url: "/images/og-image.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/og-image.jpg"],
+  },
 };
 
 export const viewport: Viewport = {

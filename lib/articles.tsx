@@ -19,8 +19,53 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "glm-legal-private-law-firm",
+    slug: "kimi-k3-executive-assistant",
     index: "01",
+    title: "Kimi K3 and an agent harness: an AI chief of staff for your leadership team",
+    category: "AI, deployed",
+    kicker: "AI, deployed · 6 min read",
+    excerpt: "Moonshot’s open-weight Kimi K3 is the brain. An agent harness is what turns it into an assistant that drafts memos, triages a calendar, and knows which actions need a human’s yes first — all on hardware your company controls.",
+    standfirst: "Moonshot’s open-weight Kimi K3 is the brain. An agent harness is what turns it into an assistant that drafts memos, triages a calendar, and knows which actions need a human’s yes first — all on hardware your company controls.",
+    date: "OCT 16, 2026",
+    readTime: "6 MIN READ",
+    next: "glm-legal-private-law-firm",
+    disclaimer: "* Kimi K3 details come from Moonshot AI’s July 2026 open-weight release, its technical report, and independent coverage (Yicai Global, DataCamp, Artificial Analysis), checked October 16, 2026. Moonshot has not published an official active-parameter count; the 104B-active-of-2.8T and 16-of-896-expert figures are independent estimates, not confirmed specs. The agent-harness definition follows Google Cloud’s August 20, 2026 explainer. Cost figures are illustrative: 16 GPUs at our ~$5/GPU-hour target for qualifying 36-month commitments, running 730 hours a month, plus a $20,000 one-time setup and $5,000/month support, split across a 50-person leadership team. Your quote depends on GPU type, configuration, region and term.",
+    body: (
+      <>
+      <p>An open-weight model is just a brain in a jar until something gives it hands. Moonshot AI&rsquo;s new Kimi K3 is the biggest open brain released so far. An agent harness &mdash; the software layer that lets a model read a calendar, pull a file, draft a reply, and know which of those it isn&rsquo;t allowed to do alone &mdash; is what turns it into an assistant your leadership team can actually use. Both halves can run on hardware you control.</p>
+      <h2 className="b-h"><span className="hn">01 / WHAT KIMI K3 IS</span></h2>
+      <p>On July 27, 2026, Moonshot AI published the full weights for Kimi K3 on Hugging Face, alongside a technical report and three training-infrastructure tools (MoonEP, FlashKDA, AgentEnv). At 2.8 trillion total parameters it is, by Moonshot&rsquo;s account, the largest open-weight model released to date, under a modified MIT license that permits commercial use, fine-tuning and local deployment. It is a mixture-of-experts model with a one-million-token context window and native image understanding, and it is also available hosted through Kimi Code, the Kimi app and Kimi API &mdash; but the open weights mean you don&rsquo;t have to use any of those.</p>
+      <aside className="pull-stat">
+        <div className="n">2.8T params, 1 license</div>
+        <div className="c">Kimi K3 ships under a modified MIT license that permits commercial use, fine-tuning and self-hosting &mdash; the open weights, not a hosted API, are what make a private deployment possible.*</div>
+      </aside>
+      <p>Moonshot&rsquo;s own benchmarks put K3 ahead of every other open model and most closed ones. Independent analysis is more measured: Artificial Analysis places it around the level of Claude Opus 4.8 and GPT-5.5, behind the newest closed frontier models. That is still a remarkable result for an open model &mdash; and more than enough brain for the work most executives actually delegate.</p>
+      <h2 className="b-h"><span className="hn">02 / THE MODEL IS NOT THE ASSISTANT</span></h2>
+      <p>A raw model answers questions. An assistant reads your calendar, drafts the reply, checks a number against last quarter&rsquo;s board deck, and asks before it sends anything external. The layer that adds those abilities is what Google Cloud calls an agent harness: software that surrounds a model and gives it tool access, memory across sessions, multi-step execution, and &mdash; critically &mdash; permission checks before it acts. The harness is also where you draw the line between what an assistant can do on its own and what it has to ask a human for first.</p>
+      <p>This matters because harness and model are two separate decisions. Point an open harness &mdash; Google&rsquo;s Agent2Agent protocol, LangGraph, CrewAI, or one your team builds &mdash; at an OpenAI-compatible endpoint you run yourself, and you can swap Kimi K3 for whatever model leads next quarter without touching the permission logic, the tool wiring, or the audit trail you already built. That is the real advantage of open weights: not just cost, but not being locked to one vendor&rsquo;s model and one vendor&rsquo;s agent platform at the same time.</p>
+      <h2 className="b-h"><span className="hn">03 / WHAT IT TAKES TO HOST IT</span></h2>
+      <p>Kimi K3&rsquo;s size is the headline, and it is also the sizing problem. At FP8 &mdash; the precision most providers use to serve a model this large in production &mdash; the weights take roughly 2.8TB of memory. A single 8&times;B200 node has about 1.5TB of HBM, so two nodes comfortably hold the full set of experts with headroom for the key-value cache a one-million-token context window needs. Run it at full FP16 instead and that doubles to roughly 5.6TB, which pushes you to four nodes. Mixture-of-experts routing means the model only computes with a fraction of its parameters per token &mdash; independent estimates put that at around 104B active parameters across 16 of 896 experts &mdash; but every expert still has to sit in memory somewhere, because any token can route to any of them.</p>
+      <aside className="pull-stat">
+        <div className="n">2.8TB (FP8) / 5.6TB (FP16)</div>
+        <div className="c">Memory Kimi K3&rsquo;s weights need at each precision. Two 8&times;B200 nodes cover the FP8 deployment; four cover full precision.*</div>
+      </aside>
+      <p>If your team is leaning on the full one-million-token context for things like multi-year contract review or a decade of board minutes, read <Link href="/blog/b200-vs-b300">when the B300 is worth the upgrade</Link> before you commit to a node count.</p>
+      <h2 className="b-h"><span className="hn">04 / WHAT IT COSTS FOR A LEADERSHIP TEAM</span></h2>
+      <p>Take a two-node FP8 deployment &mdash; 16 GPUs &mdash; serving a 50-person leadership team: the CEO&rsquo;s staff, function heads, and the people who prep board materials. The lease on 16 GPUs at our ~$5/GPU-hour target for qualifying 36-month commitments runs about $58,400 a month. Add a flat $5,000 for support and amortize a $20,000 setup fee (model serving, SSO, the tool integrations your harness needs) over the term, and the bill lands around $63,960 a month.</p>
+      <aside className="pull-stat">
+        <div className="n">~$1,280 / person / month</div>
+        <div className="c">$58,400 GPU lease + $5,000 support + amortized setup, spread across a 50-person leadership team. Half as many seats as our GLM-Legal example sharing the same 16 GPUs roughly doubles the per-seat cost.*</div>
+      </aside>
+      <p>That per-seat number is higher than it would be for a larger group sharing the same two nodes &mdash; the <Link href="/blog/baseload-vs-burst">baseload economics</Link> are the same whether 50 people use it or 200, only the denominator changes. The number that matters is usage, not seats: a model running on your own nodes has no per-token meter, so an executive assistant drafting board materials at midnight before a filing deadline costs the same as one that sits idle most of the week. For a leadership team, the question isn&rsquo;t whether 50 people can justify two GPU nodes on a seat-by-seat basis &mdash; it&rsquo;s whether faster board prep, cleaner diligence memos, and fewer hours spent hunting for a number in last year&rsquo;s deck are worth it. For most companies that already pay this group&rsquo;s salaries, the answer comes quickly.</p>
+      <h2 className="b-h"><span className="hn">05 / HOW TO GET STARTED</span></h2>
+      <p>Start with two or three workflows where the harness&rsquo;s permission checks do real work: calendar and inbox triage that drafts but never sends, meeting-prep briefs that pull from your CRM and prior board decks, and financial-model sanity checks that flag a number instead of changing one. Keep a human approving anything that leaves the building &mdash; an email, a filing, a wire instruction &mdash; and let the harness enforce that boundary instead of trusting the model to remember it. Executive communications, cap tables and HR matters are exactly the material most companies don&rsquo;t want flowing through a third-party agent platform&rsquo;s logs; running the model and the harness on infrastructure you control is what keeps that material inside your own boundary. When you <Link href="/#quote">request a quote</Link>, tell us your headcount, context-length needs and which tools your harness has to reach, and we&rsquo;ll size the deployment honestly &mdash; including telling you if two nodes is overkill.</p>
+      <p className="a-close">The model is the part everyone talks about. The harness and the hardware are the parts that decide whether your leadership team&rsquo;s actual work &mdash; and its actual secrets &mdash; stay on infrastructure you control.</p>
+      </>
+    ),
+  },
+  {
+    slug: "glm-legal-private-law-firm",
+    index: "02",
     title: "GLM-Legal on private GPUs: a 100-person law firm plan",
     category: "AI, deployed",
     kicker: "AI, deployed · 5 min read",
@@ -66,7 +111,7 @@ export const articles: Article[] = [
   },
   {
     slug: "b200-vs-b300",
-    index: "02",
+    index: "03",
     title: "B200 vs B300: which GPU fits your workload",
     category: "Hardware, explained",
     kicker: "Hardware, explained · 4 min read",
@@ -102,7 +147,7 @@ export const articles: Article[] = [
   },
   {
     slug: "reserved-vs-on-demand-gpu-pricing",
-    index: "03",
+    index: "04",
     title: "Reserved vs on-demand GPU pricing, sourced",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -134,7 +179,7 @@ export const articles: Article[] = [
   },
   {
     slug: "gpu-bill-product-economics",
-    index: "04",
+    index: "05",
     title: "Your GPU bill is part of your product economics",
     category: "Unit economics",
     kicker: "Unit economics · 4 min read",
@@ -168,7 +213,7 @@ export const articles: Article[] = [
   },
   {
     slug: "baseload-vs-burst",
-    index: "05",
+    index: "06",
     title: "Baseload vs burst: the 80/20 of GPU infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 4 min read",
@@ -201,7 +246,7 @@ export const articles: Article[] = [
   },
   {
     slug: "qualifying-deployments",
-    index: "06",
+    index: "07",
     title: "What ‘qualifying deployments’ actually means",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -239,7 +284,7 @@ export const articles: Article[] = [
   },
   {
     slug: "operating-infrastructure",
-    index: "07",
+    index: "08",
     title: "If you run GPUs 24/7, you’re operating infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 3 min read",
@@ -271,7 +316,7 @@ export const articles: Article[] = [
   },
   {
     slug: "commitment-question",
-    index: "08",
+    index: "09",
     title: "The 3-year commitment question, answered honestly",
     category: "Honest answers",
     kicker: "Honest answers · 5 min read",
@@ -279,7 +324,7 @@ export const articles: Article[] = [
     standfirst: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
     date: "SEP 02, 2026",
     readTime: "5 MIN READ",
-    next: "glm-legal-private-law-firm",
+    next: "kimi-k3-executive-assistant",
     body: (
       <>
       <p>&ldquo;Why would I commit for three years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>

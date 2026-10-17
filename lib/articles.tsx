@@ -19,8 +19,51 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "kimi-k3-executive-assistant",
+    slug: "gpu-lease-breakeven-30-percent",
     index: "01",
+    title: "The 30% rule: when leasing GPUs beats buying tokens from open-model inference providers",
+    category: "GPU economics",
+    kicker: "GPU economics · 6 min read",
+    excerpt: "Paying per token for an open-weight model is the right way to start. But once your own GPUs would be busy about 30% of the time, a financed lease costs the same — and every hour of use above that line is close to free.",
+    standfirst: "Paying per token for an open-weight model is the right way to start. But once your own GPUs would be busy about 30% of the time, a financed lease costs the same — and every hour of use above that line is close to free.",
+    date: "OCT 17, 2026",
+    readTime: "6 MIN READ",
+    next: "kimi-k3-executive-assistant",
+    disclaimer: "* Breakeven figures are illustrative, not a quote or a guarantee. Assumptions: 16 GPUs (two 8×B200 nodes) at our ~$5/GPU-hour target for qualifying 36-month commitments, running 730 hours a month ($58,400), plus $5,000/month support and a $20,000 one-time setup amortized over 36 months — about $63,960 a month in total. Throughput assumes ~4,200 blended (input + output) tokens per second per GPU for a large open-weight mixture-of-experts model served at FP8 with production batching, or ~177 billion tokens a month across 16 GPUs at full load. Hosted price assumes a blended $1.20 per million tokens; open-model provider prices vary by model, provider, input/output mix and date, so check current price lists. Real throughput depends on model, precision, context length, batch size and latency targets. Your quote depends on GPU type, configuration, region and term.",
+    body: (
+      <>
+      <p>Almost every company that runs AI on open-weight models starts the same way: an API key from an inference provider and a bill that grows with usage. That is the right way to start. You pay only for what you use, you don&rsquo;t have to guess at demand, and nobody has to think about hardware. The question worth asking a few months in isn&rsquo;t whether that was a good decision. It&rsquo;s when it stops being one. Our answer, with the arithmetic shown: at roughly 30% utilization.</p>
+      <h2 className="b-h"><span className="hn">01 / TWO WAYS TO PAY FOR THE SAME MODEL</span></h2>
+      <p>When you buy tokens from a provider serving an open model &mdash; Kimi, GLM, DeepSeek, Qwen, Llama &mdash; you pay a meter. Twice the usage, twice the bill. When you lease GPUs and run the same open weights yourself, you pay a fixed monthly amount for the capacity, whether it serves one request or a billion. Leasing is a form of financing: instead of finding millions of dollars in capital to buy servers, you spread the cost over a 36-month term as a predictable operating expense.</p>
+      <p>Neither model is better in the abstract. A meter is cheaper when usage is low or unpredictable. A fixed bill is cheaper when usage is steady and high. The useful number is the point where they cross.</p>
+      <h2 className="b-h"><span className="hn">02 / THE ARITHMETIC</span></h2>
+      <p>Take a production-sized deployment: two 8&times;B200 nodes, 16 GPUs. At our ~$5/GPU-hour target for qualifying 36-month commitments, the lease runs about $58,400 a month. Add $5,000 a month for support and amortize a $20,000 setup over the term, and the all-in bill is about $63,960 a month.</p>
+      <p>Now the other side. Serving a large open-weight mixture-of-experts model at FP8, with the batching any production inference stack uses, those 16 GPUs can process on the order of 177 billion tokens a month if they never rest. Bought from a provider at a blended $1.20 per million tokens, that same volume would cost roughly $212,000.</p>
+      <aside className="pull-stat">
+        <div className="n">~30% utilization</div>
+        <div className="c">$63,960 a month all-in &divide; ~$212,000 of equivalent hosted tokens at full load. Below that line, pay per token. Above it, the lease is cheaper.*</div>
+      </aside>
+      <p>Divide one by the other and the breakeven lands right around 30%. If your workload would keep the GPUs busy about a third of the time &mdash; roughly 53 billion tokens a month in this example &mdash; the lease and the meter cost the same. At 60% utilization, the lease is about half the price of buying tokens. At 90%, it&rsquo;s about a third.</p>
+      <h2 className="b-h"><span className="hn">03 / WHY 30% IS A LOWER BAR THAN IT SOUNDS</span></h2>
+      <p>Thirty percent sounds like a lot of traffic until you look at what a real AI product does with its day. A customer-support assistant answers questions through business hours in three time zones. A document pipeline processes overnight batches. An internal assistant drafts, summarizes and searches all day for a few hundred employees. Agentic workflows are the biggest change: one task can quietly make dozens of model calls, and token volume grows far faster than the number of people using it.</p>
+      <p>Two more things tilt the math further toward leasing. First, once the hardware is yours for the term, idle hours are free to fill: run evaluations, re-index documents, or batch next week&rsquo;s summaries at 3 a.m. at no extra cost. Second, owning the capacity means no rate limits, no per-token surprise when a new feature takes off, and a bill your CFO can put in the plan three years out. That predictability is worth something even before you reach 30%.</p>
+      <h2 className="b-h"><span className="hn">04 / WHEN TO KEEP PAYING PER TOKEN</span></h2>
+      <p>We&rsquo;d rather tell you this up front than after you sign. Stay on a provider&rsquo;s meter if:</p>
+      <ul className="a-list">
+        <li><span className="mk">01</span><span><strong>Your volume is small or spiky:</strong> a pilot, a seasonal product, or a feature you haven&rsquo;t found demand for yet. Paying for idle GPUs is the most expensive way to learn.</span></li>
+        <li><span className="mk">02</span><span><strong>You switch models every month:</strong> trying five models in a quarter is easier with an API key. Commit once you know which model your product runs on.</span></li>
+        <li><span className="mk">03</span><span><strong>You can&rsquo;t defend the 36-month forecast:</strong> if demand three years out is a guess, keep the flexibility. Our post on <Link href="/blog/commitment-question">the commitment question</Link> walks through that decision.</span></li>
+      </ul>
+      <p>Many teams land on a mix: lease enough capacity for the steady base of traffic and send the occasional spike to a provider. That is the <Link href="/blog/baseload-vs-burst">baseload-versus-burst</Link> split, and it usually beats either extreme.</p>
+      <h2 className="b-h"><span className="hn">05 / HOW TO RUN THE NUMBER FOR YOUR TEAM</span></h2>
+      <p>You don&rsquo;t need a model of the future, just last month&rsquo;s invoice. Take the tokens you bought from your inference provider, divide by the roughly 177 billion a month a 16-GPU deployment can serve, and you have your utilization today. Divide your monthly provider bill by about $64,000 and you have the same answer in dollars. If either number is near 30% and growing, it&rsquo;s time to talk. When you <Link href="/#quote">request a quote</Link>, send us your monthly token volume, the model you run, and your latency targets, and we&rsquo;ll size it honestly &mdash; including telling you if one node is enough, or if the meter is still the better deal.</p>
+      <p className="a-close">Paying per token is how you find out what your AI product needs. Leasing is how you pay for it once you know. The crossover comes sooner than most teams expect: about 30% of the way to full.</p>
+      </>
+    ),
+  },
+  {
+    slug: "kimi-k3-executive-assistant",
+    index: "02",
     title: "Kimi K3 and an agent harness: an AI chief of staff for your leadership team",
     category: "AI, deployed",
     kicker: "AI, deployed · 6 min read",
@@ -65,7 +108,7 @@ export const articles: Article[] = [
   },
   {
     slug: "glm-legal-private-law-firm",
-    index: "02",
+    index: "03",
     title: "GLM-Legal on private GPUs: a 100-person law firm plan",
     category: "AI, deployed",
     kicker: "AI, deployed · 5 min read",
@@ -111,7 +154,7 @@ export const articles: Article[] = [
   },
   {
     slug: "b200-vs-b300",
-    index: "03",
+    index: "04",
     title: "B200 vs B300: which GPU fits your workload",
     category: "Hardware, explained",
     kicker: "Hardware, explained · 4 min read",
@@ -147,7 +190,7 @@ export const articles: Article[] = [
   },
   {
     slug: "reserved-vs-on-demand-gpu-pricing",
-    index: "04",
+    index: "05",
     title: "Reserved vs on-demand GPU pricing, sourced",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -179,7 +222,7 @@ export const articles: Article[] = [
   },
   {
     slug: "gpu-bill-product-economics",
-    index: "05",
+    index: "06",
     title: "Your GPU bill is part of your product economics",
     category: "Unit economics",
     kicker: "Unit economics · 4 min read",
@@ -213,7 +256,7 @@ export const articles: Article[] = [
   },
   {
     slug: "baseload-vs-burst",
-    index: "06",
+    index: "07",
     title: "Baseload vs burst: the 80/20 of GPU infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 4 min read",
@@ -246,7 +289,7 @@ export const articles: Article[] = [
   },
   {
     slug: "qualifying-deployments",
-    index: "07",
+    index: "08",
     title: "What ‘qualifying deployments’ actually means",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -284,7 +327,7 @@ export const articles: Article[] = [
   },
   {
     slug: "operating-infrastructure",
-    index: "08",
+    index: "09",
     title: "If you run GPUs 24/7, you’re operating infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 3 min read",
@@ -316,7 +359,7 @@ export const articles: Article[] = [
   },
   {
     slug: "commitment-question",
-    index: "09",
+    index: "10",
     title: "The 3-year commitment question, answered honestly",
     category: "Honest answers",
     kicker: "Honest answers · 5 min read",
@@ -324,7 +367,7 @@ export const articles: Article[] = [
     standfirst: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
     date: "SEP 02, 2026",
     readTime: "5 MIN READ",
-    next: "kimi-k3-executive-assistant",
+    next: "gpu-lease-breakeven-30-percent",
     body: (
       <>
       <p>&ldquo;Why would I commit for three years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>

@@ -11,6 +11,7 @@ export function GET() {
 
 ## Pages
 - [Home](${SITE_URL}/): Pricing, GPU specs, colocation locations, and the fleet cost calculator.
+- [FAQ](${SITE_URL}/faq/text): Procurement questions on demand changes, verification, billing, SLA, and burst capacity.
 - [Blog](${SITE_URL}/blog): GPU pricing and AI infrastructure guides.
 
 ## Articles (plain text)

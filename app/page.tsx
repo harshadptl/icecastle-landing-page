@@ -4,14 +4,14 @@ import Link from "next/link";
 import Calculator from "@/components/Calculator";
 import QuoteForm from "@/components/QuoteForm";
 import StructuredData from "@/components/StructuredData";
-import { HOME_UPDATED, faqSchema, faqs, homePageSchema, productSchema } from "@/lib/structured-data";
+import { HOME_UPDATED, homePageSchema, productSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function HomePage() {
   return (
     <>
-      <StructuredData schemas={[homePageSchema, productSchema, faqSchema]} />
+      <StructuredData schemas={[homePageSchema, productSchema]} />
       <header className="hero" id="top">
         <canvas id="hero-particles" aria-hidden="true"></canvas>
         <div className="wrap">
@@ -209,19 +209,6 @@ export default function HomePage() {
           <Calculator />
         </div>
       </div>
-      </section>
-
-      <section id="faq" aria-labelledby="faq-h">
-        <div className="wrap">
-          <span className="eyebrow reveal">FAQ</span>
-          <h2 id="faq-h" className="reveal">Resolve the key procurement questions.</h2>
-          <div className="faq-grid">
-            {faqs.map((f, i) => (
-              <div key={f.q} className="faq-cell reveal" data-d={i ? String(i) : undefined}><div className="ix">{String(i + 1).padStart(2, "0")}</div><h3>{f.q}</h3><p>{f.a}</p></div>
-            ))}
-          </div>
-          <p className="lede reveal">Still deciding? Read <Link href="/blog/commitment-question">how to approach the commitment question</Link> and <Link href="/blog/baseload-vs-burst">how to split baseload from burst</Link>.</p>
-        </div>
       </section>
 
       <section className="final" id="quote" aria-labelledby="final-h">

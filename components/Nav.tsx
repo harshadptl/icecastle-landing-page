@@ -25,7 +25,7 @@ export default function Nav() {
           <Link href={sec("who")}>Buyer fit</Link>
           <Link href={sec("gpus")}>Capacity</Link>
           <Link href={sec("economics")}>Economics</Link>
-          <Link href={sec("faq")}>FAQs</Link>
+          <Link href="/faq">FAQs</Link>
           <Link
             href="/blog"
             className={`blog-link${inBlog ? " on" : ""}`}

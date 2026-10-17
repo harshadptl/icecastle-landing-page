@@ -41,6 +41,10 @@ blog-static: build
 	cp app/icon.svg static_blog/icon.svg
 	# Cloudflare Pages redirect: /blog/* -> /* (client hits /blog/slug, serves /slug)
 	echo "/blog/* /:splat 301" > static_blog/_redirects
+	# Remove navbar (all nav links point off-site; cleaner to strip it)
+	find static_blog -name "*.html" -type f -exec sed -i '' \
+		-e 's|<nav[^>]*>.*</nav>||g' \
+		{} \;
 	# Keep assets and blog links local (/blog/x -> /x); point every other
 	# root-relative link at the main site.
 	find static_blog -name "*.html" -type f -exec sed -i '' \

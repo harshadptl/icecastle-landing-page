@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SEO ROI Calculator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>SEO ROI Calculator</h1>
+
+  <form id="roi-form">
+    <label>Monthly organic traffic
+      <input type="number" id="traffic" min="0" step="1" required>
+    </label>
+    <label>Conversion rate (%)
+      <input type="number" id="conversion" min="0" max="100" step="0.1" required>
+    </label>
+    <label>Average customer value ($)
+      <input type="number" id="value" min="0" step="0.01" required>
+    </label>
+    <label>Monthly SEO investment ($)
+      <input type="number" id="cost" min="0.01" step="0.01" required>
+    </label>
+    <button type="submit">Calculate ROI</button>
+  </form>
+
+  <p id="error" class="error" hidden></p>
+
+  <div id="results" hidden>
+    <p>Estimated monthly revenue from SEO: <strong id="revenue-out"></strong></p>
+    <p>Estimated ROI: <strong id="roi-out"></strong></p>
+    <button id="email-btn">Email These Results to ICE Castle</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

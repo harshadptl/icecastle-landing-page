@@ -61,7 +61,7 @@ supabase/migrations/          SQL for the quote_requests table
    allowed lists, notes ≤ 2,000 chars), drops honeypot submissions silently, and inserts
    into `public.quote_requests` along with the referring page and user agent.
 3. Responses: `201` saved · `422` validation errors (per-field messages shown under inputs)
-   · `500` database error (user sees a fallback pointing to hello@icecastle.ai).
+   · `500` database error (user sees a fallback pointing to sales@icecastle.si).
 
 The table has RLS enabled with no policies, so the public `anon` key can't read or write
 it; only the server route can insert. View submissions in Table Editor → `quote_requests`

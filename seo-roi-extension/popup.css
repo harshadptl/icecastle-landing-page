@@ -1,0 +1,40 @@
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  width: 300px;
+  padding: 12px;
+  margin: 0;
+}
+
+h1 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  margin-top: 2px;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.error {
+  color: #c0392b;
+  font-size: 12px;
+}
+
+#results p {
+  font-size: 13px;
+}

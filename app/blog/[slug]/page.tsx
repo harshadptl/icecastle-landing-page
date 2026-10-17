@@ -82,7 +82,7 @@ export default async function ArticlePage({ params }: Props) {
                   Estimate Savings <span className="arr">&rarr;</span>
                 </Link>
                 <a
-                  href="mailto:hello@icecastle.ai?subject=Talk%20to%20ICE%20Castle%20Infrastructure"
+                  href="mailto:sales@icecastle.si?subject=Talk%20to%20ICE%20Castle%20Infrastructure"
                   className="btn btn-ghost"
                 >
                   Talk to Infrastructure <span className="arr">&rarr;</span>

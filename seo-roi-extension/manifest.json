@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "ICE Castle SEO ROI Calculator",
+  "version": "1.0.0",
+  "description": "Estimate your SEO return on investment and email the results to ICE Castle.",
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

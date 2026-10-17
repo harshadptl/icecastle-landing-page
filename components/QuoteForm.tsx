@@ -6,7 +6,7 @@ import { DEPLOYMENT_TIMINGS, GPU_TYPES, quoteRequestSchema, type QuoteFieldError
 
 type Status = { state: "idle" | "sending" | "success" | "error"; message: string };
 
-const FALLBACK_ERROR = "We couldn’t send your request. Please try again later or email hello@icecastle.ai.";
+const FALLBACK_ERROR = "We couldn’t send your request. Please try again later or email sales@icecastle.si.";
 
 export default function QuoteForm() {
   const [status, setStatus] = useState<Status>({ state: "idle", message: "" });
@@ -49,7 +49,7 @@ export default function QuoteForm() {
       setStatus({
         state: "error",
         message: err instanceof Error && err.message && !err.message.startsWith("Quote request failed")
-          ? `${err.message} If this keeps happening, email hello@icecastle.ai.`
+          ? `${err.message} If this keeps happening, email sales@icecastle.si.`
           : FALLBACK_ERROR,
       });
     }

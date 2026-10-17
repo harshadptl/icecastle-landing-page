@@ -18,7 +18,7 @@ export const organizationSchema = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Sales",
-    email: "hello@icecastle.ai",
+    email: "sales@icecastle.si",
   },
   sameAs: [
     // Links to social profiles (add as needed)

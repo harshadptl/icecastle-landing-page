@@ -118,8 +118,10 @@ section { counter-increment: sec; }
 .nav-links { display: flex; gap: 24px; margin-left: auto; font-size: .92rem; font-weight: 500; }
 .nav-links a { color: var(--muted); text-decoration: none; transition: color .2s; }
 .nav-links a:hover { color: var(--text); }
-.nav-cta { margin-left: 4px; }
-@media (max-width: 760px) { .nav-links { margin-left: 0; gap: 0; } .nav-links a:not(.blog-link) { display: none; } .nav-cta { margin-left: auto; } }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-social { display: inline-flex; color: var(--muted); transition: color .2s; }
+.nav-social:hover { color: var(--text); }
+@media (max-width: 760px) { .nav-links { margin-left: 0; gap: 0; } .nav-links a:not(.blog-link) { display: none; } .nav-right { margin-left: auto; } }
 @media (max-width: 380px) { .nav-links .blog-link { display: none; } }
 @media (max-width: 420px) {
   .nav-inner { padding: 12px 16px; gap: 14px; }
@@ -649,6 +651,7 @@ footer, .b-stand, .pull-stat .c, .a-disc, .form-status, .field-error { font-size
 /* Touch targets: at least 44px tall. */
 .brand, .nav-links a, .back-link, .btn { min-height: 44px; }
 .nav-links a { display: inline-flex; align-items: center; }
+.nav-social, .foot-social { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 @media (max-width: 420px) {
   .btn-sm { font-size: 1rem; white-space: normal; text-align: center; line-height: 1.2; }
 }

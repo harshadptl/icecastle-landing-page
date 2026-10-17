@@ -152,6 +152,10 @@ section { counter-increment: sec; }
 .hero h1 .icy { color: var(--text); }
 .hero-sub { color: var(--muted); font-size: clamp(1.02rem, 1.7vw, 1.2rem); margin: 24px 0 8px; max-width: 36em; }
 .hero-sub strong { color: var(--text); font-weight: 600; }
+.locations { margin: 18px 0 8px; padding: 14px 16px; border: 1px solid var(--border-ice); border-radius: 6px; background: color-mix(in srgb, var(--ice) 6%, var(--card)); box-shadow: var(--shadow-ice); max-width: 36em; }
+.locations .k { display: block; font-family: var(--font-mono); font-size: 1rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ice); margin-bottom: 10px; }
+.locations ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.locations li { border: 1px solid var(--border-ice); background: var(--card); color: var(--text); padding: 6px 12px; border-radius: 4px; font-weight: 600; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0 34px; }
 .pipeline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: .70rem; font-weight: 600; letter-spacing: .14em; color: var(--muted); }
 .pipeline .node { border: 1px solid var(--border); background: var(--card); padding: 8px 13px; border-radius: 4px; color: var(--text); }

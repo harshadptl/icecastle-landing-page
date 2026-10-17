@@ -23,8 +23,8 @@ export default function Nav() {
         </Link>
         <div className="nav-links">
           <Link href={sec("who")}>Buyer fit</Link>
-          <Link href={sec("economics")}>Economics</Link>
           <Link href={sec("gpus")}>Capacity</Link>
+          <Link href={sec("economics")}>Economics</Link>
           <Link href={sec("faq")}>FAQs</Link>
           <Link
             href="/blog"

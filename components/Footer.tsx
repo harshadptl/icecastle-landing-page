@@ -14,7 +14,7 @@ export default function Footer() {
             </p>
             <p>© 2026 ICE Castle. All rights reserved.</p>
             <p>
-              <Link href="/capacity">Capacity</Link> · <Link href="https://www.icecastle.si/contact-us">Contact Us</Link> · <Link href="https://www.icecastle.si/privacy-policy">Privacy Policy</Link>
+              <Link href="https://www.icecastle.si/capacity">Capacity</Link> · <Link href="https://www.icecastle.si/contact-us">Contact Us</Link> · <Link href="https://www.icecastle.si/privacy-policy">Privacy Policy</Link>
             </p>
             <a
               href="https://www.linkedin.com/company/143992169/"

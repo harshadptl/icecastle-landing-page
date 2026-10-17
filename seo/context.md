@@ -4,15 +4,15 @@
 
 **ICE Castle** is a managed NVIDIA B200/B300 GPU capacity provider for sustained AI workloads.
 
-- **What it does:** Offers reserved GPU capacity on long-term commitments (12–24 months) with an indicative ~$5/GPU-hour target rate for qualifying deployments.
+- **What it does:** Offers reserved GPU capacity on 36-month minimum commitments with an indicative ~$5/GPU-hour target rate for qualifying deployments, plus GPU server colocation (Texas, Ohio, Virginia, Ontario, Alberta).
 - **Who buys:** AI teams with $50K+ monthly GPU spend and a predictable 24/7 baseline (inference, training, fine-tuning, distillation, multimodal workloads).
-- **Why it matters:** On-demand GPU rates run ~$10/GPU-hour; a committed $5 rate cuts hourly cost 50% when fully utilized, and eliminates provisioning risk for baseline capacity.
+- **Why it matters:** On-demand GPU rates run ~$10/GPU-hour; a committed $5 rate cuts hourly cost 50% when fully utilized, and eliminates provisioning risk for baseline capacity. The breakeven vs. paying per token to an open-model inference provider lands around 30% utilization — see `/blog/gpu-lease-breakeven-30-percent`.
 
 **Source:** app/page.tsx (hero, economics section), app/layout.tsx (metadata).
 
 ## Pricing
 
-- **Target rate:** ~$5/GPU-hour on 12–24-month commitments (indicative, deployment-specific).
+- **Target rate:** ~$5/GPU-hour on 36-month minimum commitments (indicative, deployment-specific).
 - **Typical on-demand comparison:** ~$10/GPU-hour with on-demand cloud.
 - **Illustrative savings:** 41% spend reduction at 85% on-demand utilization.
 
@@ -62,20 +62,27 @@
 3. **Evaluation:** Compare ICE Castle vs CoreWeave vs AWS Savings Plans; search "CoreWeave vs AWS" or company name + "vs".
 4. **Decision:** Fill quote form; call sales.
 
+## Site structure (as of 2026-10-17)
+
+- `/` — homepage. `Organization` (with LinkedIn `sameAs`), `Product`, `WebPage` schema.
+- `/faq` — standalone FAQ page (split out of the homepage). `FAQPage` schema. Plain-text crawler version at `/faq/text`.
+- `/gpus/b200`, `/gpus/b300` — GPU spec/efficiency pages vs. A100/H100/H200 (and vs. each other for B300). `TechArticle` schema. Plain-text versions at `/gpus/[slug]/text`. Linked from homepage prose and the first B200/B300 mention per blog article — not from every mention.
+- `/blog` + 10 articles — newest-first array order in `lib/articles.tsx` drives display order. Each has a plain-text version at `/blog/[slug]/text`.
+- `/llms.txt` — discovery endpoint listing Home, FAQ, GPU pages, and all articles in plain text.
+- `/sitemap.xml`, `/robots.txt` — present, with explicit `Allow` rules for 13+ AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.).
+
 ## Known Issues
 
 - Untracked `env` file in repo root (contains secrets per earlier observation).
-- Blog title was "Blog" (vague); fixed to "GPU Pricing & Infrastructure Blog" (commit 0b0bad2).
 - Article titles are 50-66 chars (over ideal 40-55 range) but not critical.
-- No structured data (schema.org) on home page (e.g., LocalBusiness, FAQSchema).
-- No open graph images on blog articles.
-- No sitemap.xml or robots.txt (Next.js defaults apply).
+- No open graph images on blog articles (backlog item 6, not shipped).
+- `organizationSchema.sameAs` has one entry (LinkedIn); no Twitter/X or other profiles yet.
 
 ## Next Steps
 
 1. Build keyword map: 50+ target queries (awareness, consideration, evaluation stages).
 2. Crawl site for health: broken links, canonicals, indexing, mobile, speed.
-3. Backlog: 3–5 high-ROI fixes to ship in first run (e.g., structured data, comparison pages, alt landing pages).
+3. Open Graph images for blog articles (backlog item 6).
 
 ---
-*Setup complete: 2026-10-13 10:03 PM EDT*
+*Last updated: 2026-10-17 1:05 PM EDT*

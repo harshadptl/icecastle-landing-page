@@ -39,24 +39,32 @@ fixed the `next` ring to match (now: b200-vs-b300 → reserved-vs-on-demand-gpu-
 gpu-bill-product-economics → baseload-vs-burst → qualifying-deployments →
 operating-infrastructure → commitment-question → back to b200-vs-b300).
 
----
+### 1. ~~Add Schema.org Structured Data to Homepage~~ ✅
 
-## SHIP TODAY (Setup Day - 2026-10-13)
+Shipped 2026-10-13: `Organization`, `Product` and `WebPage` schema on `/`. `FAQPage` schema
+moved with the FAQ content to `/faq` on 2026-10-17 (item 8). No `LocalBusiness` schema added
+— ICE Castle isn't a storefront with a service area in that schema's sense; `Organization`
+covers it. `Organization.sameAs` now carries the LinkedIn company page.
 
-### 1. Add Schema.org Structured Data to Homepage ⭐⭐⭐
+### 8. ~~Create FAQ Page~~ ✅
 
-**Query:** GPU pricing, NVIDIA capacity, AI infrastructure (awareness + discovery)
-**Page:** `/`
-**Work:** 1–2 hours
-**Impact:** AI assistants (ChatGPT, Claude, Perplexity) index and cite the product. Rich snippets in Google SERP for "GPU pricing" and "AI infrastructure."
+Shipped 2026-10-17 as `/faq`, split out of the homepage's FAQ section (same content,
+same `FAQPage` schema, now with its own canonical URL). Added a plain-text crawler
+version at `/faq/text` and listed it in `/llms.txt`. Nav's "FAQs" link now points to
+`/faq` instead of the homepage anchor.
 
-**What to add:**
-- `Organization` schema: name, logo, description, contact
-- `LocalBusiness` schema: areas served, pricing model
-- `Product` schema: name (B200/B300), description, pricing (indicative), aggregateRating (placeholder)
-- `FAQSchema` for "What is ICE Castle?", "How much does it cost?", "Who should use it?"
+### 11. ~~Create NVIDIA B200 and B300 Spec Pages~~ ✅
 
-**Success:** AI answers mention ICE Castle by name + include the $5/GPU-hour claim with attribution. Google SERP shows rich snippet.
+Shipped 2026-10-17 as `/gpus/b200` and `/gpus/b300`: power draw and performance-per-watt
+vs. A100/H100/H200 (and B200 for the B300), sourced from public trackers (SemiAnalysis
+InferenceX, DataCrunch, Introl, Vast.ai) since NVIDIA doesn't publish a public datasheet
+with per-watt figures — disclaimer flags the per-watt math as our own arithmetic, not a
+measured benchmark. `TechArticle` schema, plain-text versions at `/gpus/[slug]/text`,
+listed in `/llms.txt` and `sitemap.xml`.
+
+Internal links: only the first B200/B300 mention per page is linked (homepage prose, and
+one mention per blog article) — headings, GPU cards, titles and the footer legal note are
+left unlinked so the copy doesn't fill up with repeated links.
 
 ---
 
@@ -82,11 +90,6 @@ operating-infrastructure → commitment-question → back to b200-vs-b300).
 **Page:** `/blog/baseload-cost-comparison` (expand existing article)
 **Priority:** Medium
 
-### 8. Create FAQ Page
-**Query:** "how does icecastle pricing work", "what are qualifying deployments", "gpu commitment contract terms"
-**Page:** `/faq`
-**Priority:** Medium (quick wins for long-tail queries)
-
 ### 9. Outreach: Guest Posts
 **Targets:** Dev.to, Medium, Reddit r/MachineLearning, Hacker News (YC startup context)
 **Topics:** "We cut GPU costs 50% with reserved capacity" or "How to forecast AI infrastructure costs"
@@ -103,11 +106,10 @@ operating-infrastructure → commitment-question → back to b200-vs-b300).
 
 | Status | Count |
 |--------|-------|
-| Live | 5 articles (blog) |
-| Planned (today) | 3 pages |
+| Live | 10 articles (blog), FAQ page, 2 GPU spec pages |
 | Gap (unranked queries) | 20+ keyword gaps |
 | Total keywords tracked | 25 |
 
 ---
 
-*Last updated: 2026-10-13 10:05 PM EDT*
+*Last updated: 2026-10-17 1:05 PM EDT*

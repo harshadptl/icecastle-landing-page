@@ -5,7 +5,7 @@
 
 export const SITE_URL = "https://www.icecastle.si";
 /** Bump when homepage copy changes; feeds visible "Updated" line and schema dateModified. */
-export const HOME_UPDATED = "2026-10-13";
+export const HOME_UPDATED = "2026-10-17";
 
 export const organizationSchema = {
   "@context": "https://schema.org",
@@ -20,9 +20,7 @@ export const organizationSchema = {
     contactType: "Sales",
     email: "sales@icecastle.si",
   },
-  sameAs: [
-    // Links to social profiles (add as needed)
-  ],
+  sameAs: ["https://www.linkedin.com/company/143992169/"],
 };
 
 export const productSchema = {
@@ -116,6 +114,20 @@ export function blogSchema(posts: { slug: string; title: string; date: string }[
       url: `${SITE_URL}/blog/${p.slug}`,
       datePublished: isoDate(p.date),
     })),
+  };
+}
+
+export function gpuSchema(g: { slug: string; title: string; standfirst: string; name: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: g.title,
+    description: g.standfirst,
+    url: `${SITE_URL}/gpus/${g.slug}`,
+    mainEntityOfPage: `${SITE_URL}/gpus/${g.slug}`,
+    about: { "@type": "Product", name: g.name, brand: { "@type": "Brand", name: "NVIDIA" } },
+    dateModified: "2026-10-17",
+    publisher,
   };
 }
 

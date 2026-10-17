@@ -19,7 +19,7 @@ export default function HomePage() {
             <div>
               <span className="eyebrow reveal">GPU capacity for AI</span>
               <h1 className="reveal">Scale AI without runaway GPU costs.</h1>
-              <p className="hero-sub reveal">Reserved NVIDIA B200 / B300 GPUs at a <strong>~$5/GPU-hour target</strong>, on 36-month terms.</p>
+              <p className="hero-sub reveal">Reserved NVIDIA <Link href="/gpus/b200">B200</Link> / <Link href="/gpus/b300">B300</Link> GPUs at a <strong>~$5/GPU-hour target</strong>, on 36-month terms.</p>
               <div className="locations reveal" aria-label="GPU server colocation locations">
                 <span className="k">GPU server colocation in</span>
                 <ul>
@@ -60,7 +60,7 @@ export default function HomePage() {
         <div className="wrap">
           <span className="eyebrow reveal">Buyer fit</span>
           <h2 id="who-h" className="reveal">What is ICE Castle, and who is it for?</h2>
-          <p className="lede reveal">ICE Castle rents reserved <a href="https://en.wikipedia.org/wiki/Blackwell_(microarchitecture)" target="_blank" rel="noopener">NVIDIA Blackwell</a> B200 and B300 GPUs to AI teams with steady demand. We also offer <strong>GPU server colocation in Texas, Ohio, Virginia, Ontario (Canada) and Alberta (Canada)</strong>. You commit for 36 months or more. In return, you get a ~$5/GPU-hour target rate, versus about $10 on-demand. Best fit: 24/7 workloads and $50K+ in monthly GPU spend. See <Link href="/blog/qualifying-deployments">what makes a deployment qualify</Link>.</p>
+          <p className="lede reveal">ICE Castle rents reserved <a href="https://en.wikipedia.org/wiki/Blackwell_(microarchitecture)" target="_blank" rel="noopener">NVIDIA Blackwell</a> <Link href="/gpus/b200">B200</Link> and <Link href="/gpus/b300">B300</Link> GPUs to AI teams with steady demand. We also offer <strong>GPU server colocation in Texas, Ohio, Virginia, Ontario (Canada) and Alberta (Canada)</strong>. You commit for 36 months or more. In return, you get a ~$5/GPU-hour target rate, versus about $10 on-demand. Best fit: 24/7 workloads and $50K+ in monthly GPU spend. See <Link href="/blog/qualifying-deployments">what makes a deployment qualify</Link>.</p>
           <div className="cards5">
             <div className="who-card feat reveal">
               <svg viewBox="0 0 24 24" fill="none" stroke="#BDEFFF" strokeWidth="1.6" aria-hidden="true"><path d="M9 2a4 4 0 0 0-4 4c-1.6.8-2.6 2.6-2.5 4.5.1 1.8 1.1 3.2 2.5 4.1A4 4 0 0 0 9 21a4 4 0 0 0 2.9-1.3A4 4 0 0 0 15 22a4 4 0 0 0 4-4c1.4-.9 2.4-2.3 2.5-4.1.1-1.9-.9-3.7-2.5-4.5A4 4 0 0 0 15 2a4 4 0 0 0-2.9 1.3A4 4 0 0 0 9 2z"/><path d="M12 4v16" stroke="#5CA9FF"/></svg>
@@ -97,7 +97,7 @@ export default function HomePage() {
         <div className="wrap">
           <span className="eyebrow reveal">Available capacity</span>
           <h2 id="gpu-h" className="reveal">NVIDIA B200 / B300 capacity, confirmed per deployment.</h2>
-          <p className="lede reveal">B200 / B300 capacity is offered for qualifying deployments. Availability is subject to confirmation; this page does not publish live inventory by region or standard provisioning lead times.</p>
+          <p className="lede reveal"><Link href="/gpus/b200">B200</Link> / <Link href="/gpus/b300">B300</Link> capacity is offered for qualifying deployments. Availability is subject to confirmation; this page does not publish live inventory by region or standard provisioning lead times.</p>
           <figure className="gpu-fig reveal" data-d="1" style={{ marginLeft: "0", marginRight: "0" }}>
             <Image src="/images/gpu-rack.webp" alt="A frosted ice-blue GPU server module sliding out of a rack in a dark data hall with cyan circuit glow" width={1920} height={1280} sizes="(max-width: 1152px) 100vw, 1104px" />
           </figure>

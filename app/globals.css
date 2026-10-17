@@ -481,6 +481,8 @@ input[type="range"]:focus-visible { outline: 2px solid var(--ice); outline-offse
 footer { padding: 56px 0 64px; border-top: 1px solid var(--border); color: var(--muted); font-size: .88rem; }
 .foot-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; }
 .foot-brand { font-family: var(--font-manrope), sans-serif; font-weight: 800; letter-spacing: .12em; color: var(--text); font-size: .95rem; margin-bottom: 12px; }
+.foot-social { display: inline-flex; margin-top: 12px; color: var(--muted); transition: color .15s; }
+.foot-social:hover { color: #5CA9FF; }
 @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; } }
 
 

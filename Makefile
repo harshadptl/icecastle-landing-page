@@ -38,10 +38,18 @@ blog-static: build
 	done
 	mkdir -p static_blog/_next
 	cp -r .next/static static_blog/_next/static
-	# Rewrite all root-relative links to icecastle.si (handles href="/", src="/", etc.)
-	# This makes all nav, footer, and cross-article links point back to the main site
+	cp app/icon.svg static_blog/icon.svg
+	# Cloudflare Pages redirect: /blog/* -> /* (client hits /blog/slug, serves /slug)
+	echo "/blog/* /:splat 301" > static_blog/_redirects
+	# Keep assets and blog links local (/blog/x -> /x); point every other
+	# root-relative link at the main site.
 	find static_blog -name "*.html" -type f -exec sed -i '' \
-		's|="/|="https://www.icecastle.si/|g' \
+		-e 's|="/_next/|="@LOCAL@_next/|g' \
+		-e 's|="/icon.svg|="@LOCAL@icon.svg|g' \
+		-e 's|="/blog/|="@LOCAL@|g' \
+		-e 's|="/blog"|="@LOCAL@"|g' \
+		-e 's|="/|="https://www.icecastle.si/|g' \
+		-e 's|@LOCAL@|/|g' \
 		{} \;
 
 # Cloudflare Pages deploys a directory, not an archive, so no zip step here;

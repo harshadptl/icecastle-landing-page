@@ -1,4 +1,6 @@
-.PHONY: install dev build start lint clean extension blog-static
+CF_PROJECT ?= icecastleblog
+
+.PHONY: install dev build start lint clean extension blog-static deploy-blog
 
 install:
 	npm install
@@ -36,3 +38,14 @@ blog-static: build
 	done
 	mkdir -p static_blog/_next
 	cp -r .next/static static_blog/_next/static
+	# Rewrite all root-relative links to icecastle.si (handles href="/", src="/", etc.)
+	# This makes all nav, footer, and cross-article links point back to the main site
+	find static_blog -name "*.html" -type f -exec sed -i '' \
+		's|="/|="https://www.icecastle.si/|g' \
+		{} \;
+
+# Cloudflare Pages deploys a directory, not an archive, so no zip step here;
+# requires `wrangler login` once, or CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID set.
+# Override project with: make deploy-blog CF_PROJECT=my-project
+deploy-blog: blog-static
+	npx wrangler pages deploy static_blog --project-name=$(CF_PROJECT)

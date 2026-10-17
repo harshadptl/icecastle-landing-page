@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer>
@@ -11,6 +13,9 @@ export default function Footer() {
               Stop renting expensive GPU hours. Start locking in the compute your AI business depends on.
             </p>
             <p>© 2026 ICE Castle. All rights reserved.</p>
+            <p>
+              <Link href="/contact-us">Contact Us</Link> · <Link href="/privacy-policy">Privacy Policy</Link>
+            </p>
             <a
               href="https://www.linkedin.com/company/143992169/"
               target="_blank"

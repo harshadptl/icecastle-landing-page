@@ -8,6 +8,19 @@ export const metadata: Metadata = {
   description:
     "ICE Castle GPU capacity in Texas, Ohio, Virginia, Ontario and Alberta: 100–200 GPUs per site, HIPAA and SOC 2, surge power headroom, air and liquid cooling.",
   alternates: { canonical: "/capacity" },
+  openGraph: {
+    type: "website",
+    title: "GPU Capacity by Location",
+    description:
+      "ICE Castle GPU capacity in Texas, Ohio, Virginia, Ontario and Alberta: 100–200 GPUs per site, HIPAA and SOC 2, surge power headroom, and air and liquid cooling.",
+    url: "/capacity",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GPU Capacity by Location",
+    description:
+      "ICE Castle GPU capacity in Texas, Ohio, Virginia, Ontario and Alberta: 100–200 GPUs per site, HIPAA and SOC 2, surge power headroom, and air and liquid cooling.",
+  },
 };
 
 export default function CapacityPage() {

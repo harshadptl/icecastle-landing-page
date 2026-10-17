@@ -80,10 +80,13 @@ left unlinked so the copy doesn't fill up with repeated links.
 **Page:** `/blog/gpu-bill-product-economics`
 **Priority:** Medium (already live; needs internal links and visibility boost)
 
-### 6. Add Open Graph Images to All Blog Articles
-**Query:** (visual CTR on social)
-**Page:** `/blog/*`
-**Priority:** High (social sharing + preview clicks)
+### 6. ~~Add Open Graph Images to All Blog Articles~~ ✅
+
+Shipped 2026-10-17: dynamic per-article image at `/blog/[slug]/opengraph-image` via
+`next/og` (category badge, index, title, ICE Castle wordmark on brand background) —
+not static photography, generated at build time from each article's own data. Replaces
+the single generic `og-image.jpg` every article previously shared. Homepage, `/faq` and
+`/gpus/[slug]` still use the generic image.
 
 ### 7. Create "Operating vs Burst GPU Infrastructure: Cost Model"
 **Query:** "baseload vs burst gpu", "reserved vs on-demand"

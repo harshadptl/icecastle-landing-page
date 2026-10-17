@@ -15,6 +15,7 @@ export function GET() {
 
 ## Pages
 - [Home](${SITE_URL}/): Pricing, GPU specs, colocation locations, and the fleet cost calculator.
+- [Capacity](${SITE_URL}/capacity): GPU locations map; 100–200 GPUs per site, HIPAA and SOC 2, surge power, air and liquid cooling.
 - [FAQ](${SITE_URL}/faq/text): Procurement questions on demand changes, verification, billing, SLA, and burst capacity.
 - [Blog](${SITE_URL}/blog): GPU pricing and AI infrastructure guides.
 

@@ -655,3 +655,14 @@ footer, .b-stand, .pull-stat .c, .a-disc, .form-status, .field-error { font-size
 @media (max-width: 420px) {
   .btn-sm { font-size: 1rem; white-space: normal; text-align: center; line-height: 1.2; }
 }
+
+/* Capacity page */
+.cap-map { height: clamp(320px, 52vw, 520px); margin-top: 40px; border: 1px solid var(--border-ice); border-radius: 14px; background: var(--bg-soft); z-index: 0; }
+.cap-map .leaflet-tooltip { background: var(--card-2); color: var(--text); border: 1px solid var(--border-ice); font-family: var(--font-mono); font-size: .78rem; }
+.cap-map .leaflet-tooltip-top::before { border-top-color: var(--border-ice); }
+.cap-grid { list-style: none; padding: 0; margin: 32px 0 48px; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.cap-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.cap-card h2 { font-size: 1.15rem; margin: 0 0 14px; color: var(--ice); }
+.cap-card dl { margin: 0; display: grid; gap: 10px; }
+.cap-card dt { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mono-dim); }
+.cap-card dd { margin: 2px 0 0; color: var(--mono-strong); }

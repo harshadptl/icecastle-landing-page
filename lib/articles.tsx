@@ -19,8 +19,46 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "gpu-lease-breakeven-30-percent",
+    slug: "kimi-k3-faster-serving",
     index: "01",
+    title: "Kimi K3 just got cheaper to serve — no new hardware required",
+    category: "GPU economics",
+    kicker: "GPU economics · 5 min read",
+    excerpt: "A new open-source serving optimization cuts GPU-hours per token for Kimi K3 by 24–41% at production batch sizes. No new silicon, no new contract — just more tokens out of the lease you already have.",
+    standfirst: "A new open-source serving optimization cuts GPU-hours per token for Kimi K3 by 24–41% at production batch sizes. No new silicon, no new contract — just more tokens out of the lease you already have.",
+    date: "OCT 18, 2026",
+    readTime: "5 MIN READ",
+    next: "gpu-lease-breakeven-30-percent",
+    disclaimer: "* Benchmark figures come from vLLM's October 16, 2026 writeup on an optimized decode path for Kimi K3, checked October 18, 2026. vLLM tested on NVIDIA GB300 rack-scale systems (8 or 16 GPUs in one NVLink domain), a different physical configuration from the standalone B300 we lease; both are Blackwell Ultra generation, but results on a leased deployment will differ and should be benchmarked against your own traffic. The single-user 842 tokens/sec figure assumes a fixed speculative-decoding acceptance rate and is a best case, not a guarantee. Dollar figures use our ~$5/GPU-hour target for qualifying 36-month commitments; your quote depends on GPU type, configuration, region and term.",
+    body: (
+      <>
+      <p>Most of the time, a GPU lease gets cheaper per token in only one way: you fill it with more traffic. This week there was a second way. vLLM shipped a rewritten decode path for Kimi K3 that does more work per GPU-hour on the exact same chips &mdash; no new order, no new contract, just a software update.</p>
+      <h2 className="b-h"><span className="hn">01 / WHAT CHANGED</span></h2>
+      <p>On October 16, 2026, the vLLM project published a <a href="https://vllm.ai/blog/2026-10-16-kimi-k3-megakernel" rel="noopener">specialized decode path</a> for Kimi K3 on NVIDIA&rsquo;s Blackwell Ultra platform. The change is all software: fusing operations that used to run as separate kernels, cutting the per-layer kernel count roughly in half, and overlapping weight loading with communication instead of waiting on it. Nothing about the model changed and nothing about the hardware changed. Depending on batch size and GPU count, the same GPUs now produce 1.3&times; to 1.9&times; as many decode tokens per second.</p>
+      <h2 className="b-h"><span className="hn">02 / WHY THIS MATTERS MORE WHEN YOU OWN THE GPUs</span></h2>
+      <p>If you buy tokens from a hosted provider, a speedup like this is the provider&rsquo;s business, not yours &mdash; whether it reaches your invoice as a lower price is their call. If you lease the GPUs yourself, the logic flips. The lease is a fixed bill, set by <Link href="/blog/gpu-lease-breakeven-30-percent">the arithmetic we&rsquo;ve written about before</Link>: the same amount whether the GPUs serve one request or a billion. A serving-stack improvement doesn&rsquo;t touch that bill. It just means every GPU-hour you&rsquo;re already paying for does more work. That is the whole case for owning the stack instead of renting the output: when inference software gets better, the gains land on your side of the ledger automatically.</p>
+      <h2 className="b-h"><span className="hn">03 / THE NUMBERS, AT OUR $5/GPU-HOUR TARGET</span></h2>
+      <p>Take a 16-GPU deployment running at a realistic production batch size, somewhere between 16 and 64 concurrent requests. At $5/GPU-hour, that lease costs the same whether it&rsquo;s serving the old decode path or the new one. What changes is the cost per million tokens it produces: roughly $21.61 falls to $12.64 at batch 16, and $9.98 falls to $6.16 at batch 64 &mdash; a 38&ndash;41% drop with the lease bill unchanged.</p>
+      <aside className="pull-stat">
+        <div className="n">24&ndash;41% more tokens / GPU-hour</div>
+        <div className="c">At production batch sizes (16&ndash;64 concurrent requests), the same leased GPUs and the same $5/GPU-hour rate now clear more tokens for the same bill &mdash; pure margin, not new traffic.*</div>
+      </aside>
+      <p>The single-user number is more dramatic &mdash; vLLM reports over 840 tokens per second for one request on 16 GPUs, up from about 490 &mdash; but that configuration is the least efficient use of 16 GPUs regardless of the speedup. The number that moves your bill is the production-batch one.</p>
+      <h2 className="b-h"><span className="hn">04 / THE CATCH</span></h2>
+      <p>Two honest caveats before you resize anything. First, vLLM benchmarked this on GB300 rack-scale systems, not the standalone B300 we lease &mdash; same Blackwell Ultra generation, different physical configuration, so treat these figures as directional until you benchmark your own traffic. Second, the headline single-user figure assumes a fixed speculative-decoding acceptance rate; real traffic with real prompts will land somewhere else. Decode speed also isn&rsquo;t the whole bill &mdash; prompt processing isn&rsquo;t covered by these figures and won&rsquo;t move as much.</p>
+      <h2 className="b-h"><span className="hn">05 / WHAT TO DO WITH THIS</span></h2>
+      <ul className="a-list">
+        <li><span className="mk">01</span><span><strong>Already leasing?</strong> Update your serving stack and benchmark it against your own traffic before you order more GPUs for growth you may already have headroom for.</span></li>
+        <li><span className="mk">02</span><span><strong>Still deciding whether to lease?</strong> Add it to <Link href="/blog/gpu-lease-breakeven-30-percent">the 30% breakeven math</Link>: the leased side of that comparison just got cheaper, which only pulls the breakeven utilization down further. That is the direction serving software keeps moving it.</span></li>
+      </ul>
+      <p>If you&rsquo;re running <Link href="/blog/kimi-k3-executive-assistant">Kimi K3 as a leadership assistant</Link> or any other large open model on <Link href="/gpus/b300">B300</Link> capacity, <Link href="/#quote">request a quote</Link> and tell us your current traffic. We&rsquo;ll tell you honestly whether a software update covers your next six months of growth, or whether you actually need more GPUs.</p>
+      <p className="a-close">Hardware is the expensive, slow-moving part of this stack. Software is the part that keeps getting better underneath you, for free, as long as someone keeps you current.</p>
+      </>
+    ),
+  },
+  {
+    slug: "gpu-lease-breakeven-30-percent",
+    index: "02",
     title: "The 30% rule: when leasing GPUs beats buying tokens from open-model inference providers",
     category: "GPU economics",
     kicker: "GPU economics · 6 min read",
@@ -63,7 +101,7 @@ export const articles: Article[] = [
   },
   {
     slug: "kimi-k3-executive-assistant",
-    index: "02",
+    index: "03",
     title: "Kimi K3 and an agent harness: an AI chief of staff for your leadership team",
     category: "AI, deployed",
     kicker: "AI, deployed · 6 min read",
@@ -108,7 +146,7 @@ export const articles: Article[] = [
   },
   {
     slug: "glm-legal-private-law-firm",
-    index: "03",
+    index: "04",
     title: "GLM-Legal on private GPUs: a 100-person law firm plan",
     category: "AI, deployed",
     kicker: "AI, deployed · 5 min read",
@@ -154,7 +192,7 @@ export const articles: Article[] = [
   },
   {
     slug: "b200-vs-b300",
-    index: "04",
+    index: "05",
     title: "B200 vs B300: which GPU fits your workload",
     category: "Hardware, explained",
     kicker: "Hardware, explained · 4 min read",
@@ -190,7 +228,7 @@ export const articles: Article[] = [
   },
   {
     slug: "reserved-vs-on-demand-gpu-pricing",
-    index: "05",
+    index: "06",
     title: "Reserved vs on-demand GPU pricing, sourced",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -222,7 +260,7 @@ export const articles: Article[] = [
   },
   {
     slug: "gpu-bill-product-economics",
-    index: "06",
+    index: "07",
     title: "Your GPU bill is part of your product economics",
     category: "Unit economics",
     kicker: "Unit economics · 4 min read",
@@ -256,7 +294,7 @@ export const articles: Article[] = [
   },
   {
     slug: "baseload-vs-burst",
-    index: "07",
+    index: "08",
     title: "Baseload vs burst: the 80/20 of GPU infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 4 min read",
@@ -289,7 +327,7 @@ export const articles: Article[] = [
   },
   {
     slug: "qualifying-deployments",
-    index: "08",
+    index: "09",
     title: "What ‘qualifying deployments’ actually means",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -327,7 +365,7 @@ export const articles: Article[] = [
   },
   {
     slug: "operating-infrastructure",
-    index: "09",
+    index: "10",
     title: "If you run GPUs 24/7, you’re operating infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 3 min read",
@@ -359,7 +397,7 @@ export const articles: Article[] = [
   },
   {
     slug: "commitment-question",
-    index: "10",
+    index: "11",
     title: "The 3-year commitment question, answered honestly",
     category: "Honest answers",
     kicker: "Honest answers · 5 min read",
@@ -367,7 +405,7 @@ export const articles: Article[] = [
     standfirst: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
     date: "SEP 02, 2026",
     readTime: "5 MIN READ",
-    next: "gpu-lease-breakeven-30-percent",
+    next: "kimi-k3-faster-serving",
     body: (
       <>
       <p>&ldquo;Why would I commit for three years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>

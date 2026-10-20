@@ -190,7 +190,7 @@ section { counter-increment: sec; }
 .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 56px; }
 .hero-stat { background: var(--card); padding: 26px 28px; }
 .hero-stat .n { font-family: var(--font-manrope), sans-serif; font-size: clamp(1.7rem, 3.2vw, 2.5rem); font-weight: 800; color: var(--ice); }
-.hero-stat .l { color: var(--muted); font-size: .88rem; margin-top: 6px; }
+.hero-stat .l { color: var(--muted); font-size: .68rem; margin-top: 6px; }
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; gap: 44px; }
   .chip-a { left: 8px; } .chip-b { right: 8px; }
@@ -643,11 +643,12 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--border); color: var(-
 .hero-stats { margin-bottom: 0; }
 .bwall > li { display: grid; }
 /* Readable prose: nothing below 16px. Uppercase mono micro-labels are left as-is by design. */
-.nav-links, .btn-sm, .hero-stat .l, .price-box .per, .assume, .who-card p,
+.nav-links, .btn-sm, .price-box .per, .assume, .who-card p,
 .field label, .sld-label, .sld-val, .out-row .k, .out-note, .lease-card p,
 .gpu-card li, .use-card p, .use-card .math .line, .use-card .arrow-flow,
 .burst .s, .base .s, .trust-item, .faq-cell p, .form-note, .form-hint,
 footer, .b-stand, .pull-stat .c, .a-disc, .form-status, .field-error { font-size: 1rem; }
+.hero-stats .l { font-size: .95rem; }
 /* Touch targets: at least 44px tall. */
 .brand, .nav-links a, .back-link, .btn { min-height: 44px; }
 .nav-links a { display: inline-flex; align-items: center; }

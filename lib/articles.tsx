@@ -19,8 +19,59 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "kimi-k3-faster-serving",
+    slug: "deepinfer-reserved-b200-b300",
     index: "01",
+    title: "Running DeepSeek's DeepInfer on dedicated B200/B300 GPUs: what it does, what it doesn't, and what it costs",
+    category: "AI, deployed",
+    kicker: "AI, deployed · 7 min read",
+    excerpt: "DeepSeek open-sourced the engine behind its own production service. Paired with reserved B200/B300 capacity, it's a credible way to own the cost line of inference &mdash; with real limits worth knowing upfront.",
+    standfirst: "DeepSeek open-sourced the engine behind its own production service. Paired with reserved B200/B300 capacity, it's a credible way to own the cost line of inference &mdash; with real limits worth knowing upfront.",
+    date: "OCT 21, 2026",
+    readTime: "7 MIN READ",
+    next: "kimi-k3-faster-serving",
+    disclaimer: "* GitHub star count and release details reflect DeepSeek's DeepInfer repository as checked October 20, 2026, and will have moved on by the time you read this. “SM100” maps to NVIDIA compute capability 10.0 (the B200); B300 (compute capability 10.3) is not named in DeepInfer's README as of this writing, so validate any build on your own target nodes before committing. The ~$5/GPU-hour figure is ICE Castle's target rate for qualifying 36-month commitments against a ~$10 on-demand baseline; actual pricing depends on GPU type, configuration, region and term, and the target applies only to qualifying deployments. The AWS Savings Plans figure is AWS's own published rate as of this writing, cited for context, not as a direct comparison to ICE Castle pricing.",
+    body: (
+      <>
+      <p>Most AI teams discover the same thing about a year into production: the model isn&rsquo;t the hard part. The bill is. Inference runs every hour of every day, on-demand rates move under you, and the engine deciding how many tokens you get per GPU-hour is usually a black box you rent rather than own.</p>
+      <p>That is why DeepSeek open-sourcing <a href="https://github.com/deepseek-ai/DeepInfer" rel="noopener">DeepInfer</a> &mdash; the inference framework behind its own large-scale service &mdash; is worth a careful look. Paired with GPUs you reserve rather than rent by the hour, it gives teams a credible way to own both the software and the cost line of their inference stack. It also comes with real limits, and it&rsquo;s better to know them upfront.</p>
+      <h2 className="b-h"><span className="hn">01 / WHAT DEEPINFER IS</span></h2>
+      <p>DeepSeek describes DeepInfer as the framework that powers its own production service at scale: a single cluster running it serves 155 trillion tokens a day, according to DeepSeek&rsquo;s <a href="https://github.com/deepseek-ai/DeepInfer/blob/main/doc/inference_deployment_qa.md" rel="noopener">deployment Q&amp;A</a>. The repository went public in October 2026 and passed 12,000 GitHub stars within three weeks.*</p>
+      <p>Today it supports one model, DeepSeek-V4.1-Flash, on NVIDIA SM100 GPUs and Huawei Ascend 950 NPUs, with attention and context parallelism, MoE expert parallelism with load balancing, speculative decoding, asynchronous CPU/GPU scheduling, batch-invariant inference with deterministic sampling on NVIDIA hardware, and structured output constrained to a JSON schema, regex or grammar. Underneath, it runs on DeepSeek&rsquo;s own open kernel libraries &mdash; FlashMLA, DeepGEMM, DeepEP &mdash; with FP4 for the KV cache and MoE expert weights.</p>
+      <p>It&rsquo;s just as important to know what the release leaves out. By DeepSeek&rsquo;s own description, it &ldquo;provides offline inference&rdquo; &mdash; there is no HTTP serving API, no KV cache system, no prefill/decode disaggregation and no load balancing across replicas. The <a href="https://github.com/deepseek-ai/DeepInfer#readme" rel="noopener">README</a> lists those three as required for a complete inference service and explicitly not included. Treat DeepInfer today as a strong engine for batch work and the foundation of a service, not a drop-in replacement for a hosted endpoint.</p>
+      <p>On performance, read the README&rsquo;s own <a href="https://github.com/deepseek-ai/DeepInfer#performance-benchmarks" rel="noopener">prefill and decode charts</a> rather than anyone&rsquo;s summary of them &mdash; they were measured on 4 SM100 GPUs for prefill and 64 for decode, each within one scale-up domain. One figure DeepSeek does state directly: confidence-scheduled verification delivers 4&ndash;7% more throughput at the production operating point, compared with always verifying five draft tokens.</p>
+      <h2 className="b-h"><span className="hn">02 / WHY DEDICATED, RESERVED BLACKWELL CAPACITY FITS</span></h2>
+      <ul className="a-list">
+        <li><span className="mk">01</span><span><strong>The hardware matches.</strong> SM100 is NVIDIA&rsquo;s compute capability 10.0 &mdash; the B200, per <a href="https://developer.nvidia.com/cuda-gpus" rel="noopener">NVIDIA&rsquo;s own table</a>. The B300 is a separate compute capability (10.3) and isn&rsquo;t named in DeepInfer&rsquo;s README; if you&rsquo;re planning around B300s, validate the build on your target nodes before you commit. Hopper (H100/H200) isn&rsquo;t supported, and community pull requests to add it were still open as of this writing.</span></li>
+        <li><span className="mk">02</span><span><strong>The engine rewards steady load.</strong> Per-GPU throughput climbs as batches fill up in DeepInfer&rsquo;s own benchmarks. An engine that performs best when kept busy pairs naturally with capacity priced for being kept busy &mdash; reserved capacity only pays off at high utilization, because you pay for every reserved hour whether you use it or not.</span></li>
+        <li><span className="mk">03</span><span><strong>The cost becomes predictable.</strong> A fixed rate for a fixed term turns inference from a variable bill into a line item finance can plan around. Cloud providers have long traded discounts for commitment &mdash; AWS advertises <a href="https://aws.amazon.com/savingsplans/compute-pricing/" rel="noopener">up to 72% off</a> on-demand EC2 rates for one- to three-year Savings Plans.*</span></li>
+        <li><span className="mk">04</span><span><strong>You keep control of your data.</strong> Open weights, an open-source engine and dedicated GPUs mean prompts and outputs stay on infrastructure you control. Our <Link href="/capacity">five sites</Link> in Texas, Ohio, Virginia, Ontario and Alberta each run 100&ndash;200 GPUs under HIPAA and SOC 2.</span></li>
+        <li><span className="mk">05</span><span><strong>The capacity is actually yours.</strong> Dedicated GPUs run 24/7 for production workloads &mdash; you aren&rsquo;t competing for them by the hour. Confirm tenancy, SLA and network scope in writing; our <Link href="/faq">FAQ</Link> covers the same ground.</span></li>
+      </ul>
+      <p>One caution on scale: DeepSeek&rsquo;s Q&amp;A puts the smallest efficient deployment at 64 GPUs of prefill plus 64 of decode, and its decode benchmark ran inside a single scale-up domain. A standard 8-GPU HGX B200 or B300 board is one <a href="https://www.nvidia.com/en-us/data-center/hgx/" rel="noopener">NVLink domain</a> of eight GPUs. On 8-GPU nodes, start with eight-way expert parallelism &mdash; the example&rsquo;s own default &mdash; and treat the Q&amp;A&rsquo;s EP8 figures as your reference, not the EP64 curve.</p>
+      <h2 className="b-h"><span className="hn">03 / GETTING STARTED, WITHOUT THE RUNBOOK</span></h2>
+      <p>Standing up DeepInfer today is a build-from-source job, not a package install: Linux, GCC 13 or later, Python 3.12 and CUDA 13, with DeepSeek&rsquo;s kernel libraries pulled in as git submodules. The default checkpoint, <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" rel="noopener">DeepSeek-V4.1-Flash-1017</a>, downloads from Hugging Face on first run, or points at a local copy for locked-down networks. The <a href="https://github.com/deepseek-ai/DeepInfer/blob/main/examples/README.md" rel="noopener">examples</a> support several parallel layouts out of the box &mdash; expert, data and context parallelism &mdash; and two settings matter most for production: one enables confidence-scheduled speculative decoding, the other enables batch-invariant, reproducible output. DeepSeek also ships an <a href="https://github.com/deepseek-ai/DeepInfer/blob/main/eval/README.md" rel="noopener">evaluation harness</a> against AIME 2026, GPQA Diamond and HLE, so you can check a build against DeepSeek&rsquo;s reference scores before trusting it with real traffic.</p>
+      <p>None of this is hard. It&rsquo;s just not a managed service yet &mdash; which is exactly where dedicated infrastructure, and a team that runs GPUs for a living, earns its keep.</p>
+      <h2 className="b-h"><span className="hn">04 / WHERE THIS OPENS UP NEW GROUND</span></h2>
+      <p><em>These are illustrative patterns, not customer stories.</em> A capable release this early creates room to move before the rest of the market catches up. Three stand out.</p>
+      <ul className="a-list">
+        <li><span className="mk">01</span><span><strong>Nightly batch processing.</strong> An insurer extracting fields from claims, contracts and correspondence overnight doesn&rsquo;t need a serving API &mdash; the workload is batch by nature, which is exactly what an offline engine suits. JSON-schema structured output keeps results machine-readable, and the GPUs stay busy on a predictable schedule.</span></li>
+        <li><span className="mk">02</span><span><strong>Reproducible evaluation and regression testing.</strong> A product team re-running thousands of prompts every time it changes a prompt, retriever or fine-tune gets a real advantage from batch-invariant inference and deterministic sampling: a change in output reflects a change in the system, not a change in batch composition, which makes regressions far easier to trust.</span></li>
+        <li><span className="mk">03</span><span><strong>A platform team building its own endpoint.</strong> A company that wants V4.1-Flash behind its own API, for data-residency reasons, can start with DeepInfer on one 8-GPU node for batch jobs while building the pieces the release leaves out &mdash; serving, KV cache storage, load balancing &mdash; then grow toward the prefill/decode layout DeepSeek describes as traffic justifies it.</span></li>
+      </ul>
+      <h2 className="b-h"><span className="hn">05 / WHAT IT COSTS</span></h2>
+      <p>Our own <Link href="/#economics">published figures</Link> use a target rate of about $5 per GPU-hour for qualifying commitments of at least 36 months, against about $10 on-demand.* The best fit is 24/7 workloads with $50K or more in monthly GPU spend. At that rate, 32 GPUs running around the clock cost about $1.4M a year less than the same GPUs rented on-demand.</p>
+      <aside className="pull-stat">
+        <div className="n">~$1.4M a year</div>
+        <div className="c">The reserved-vs-on-demand difference on 32 GPUs run 24/7, at our ~$5 vs. ~$10/GPU-hour figures. At 85% on-demand utilization instead of 100%, the gap narrows to about $981K &mdash; still roughly 41%.*</div>
+      </aside>
+      <p>All of these are illustrative figures, not quotes. Pricing depends on GPU type, node configuration, quantity, region and term, and the ~$5 target applies only to <Link href="/blog/qualifying-deployments">qualifying deployments</Link>. Commit only to the baseline you&rsquo;re sure of, and keep cloud capacity for spikes.</p>
+      <p className="a-close">DeepInfer gives you DeepSeek&rsquo;s production engine for DeepSeek-V4.1-Flash: open, well documented, and tuned for Blackwell-class SM100 GPUs. It&rsquo;s offline-first, so treat it as a strong engine for steady batch work and the core of a service you&rsquo;ll build out &mdash; not a finished product. If that steady work is already costing you $50K or more a month, reserved B200 or B300 capacity is worth modelling against it. <Link href="/#quote">Request a quote</Link> for your GPU count, region and timeline, or reach the team at contactus@icecastle.si.</p>
+      </>
+    ),
+  },
+  {
+    slug: "kimi-k3-faster-serving",
+    index: "02",
     title: "Kimi K3 just got cheaper to serve — no new hardware required",
     category: "GPU economics",
     kicker: "GPU economics · 5 min read",
@@ -58,7 +109,7 @@ export const articles: Article[] = [
   },
   {
     slug: "gpu-lease-breakeven-30-percent",
-    index: "02",
+    index: "03",
     title: "The 30% rule: when leasing GPUs beats buying tokens from open-model inference providers",
     category: "GPU economics",
     kicker: "GPU economics · 6 min read",
@@ -101,7 +152,7 @@ export const articles: Article[] = [
   },
   {
     slug: "kimi-k3-executive-assistant",
-    index: "03",
+    index: "04",
     title: "Kimi K3 and an agent harness: an AI chief of staff for your leadership team",
     category: "AI, deployed",
     kicker: "AI, deployed · 6 min read",
@@ -146,7 +197,7 @@ export const articles: Article[] = [
   },
   {
     slug: "glm-legal-private-law-firm",
-    index: "04",
+    index: "05",
     title: "GLM-Legal on private GPUs: a 100-person law firm plan",
     category: "AI, deployed",
     kicker: "AI, deployed · 5 min read",
@@ -192,7 +243,7 @@ export const articles: Article[] = [
   },
   {
     slug: "b200-vs-b300",
-    index: "05",
+    index: "06",
     title: "B200 vs B300: which GPU fits your workload",
     category: "Hardware, explained",
     kicker: "Hardware, explained · 4 min read",
@@ -228,7 +279,7 @@ export const articles: Article[] = [
   },
   {
     slug: "reserved-vs-on-demand-gpu-pricing",
-    index: "06",
+    index: "07",
     title: "Reserved vs on-demand GPU pricing, sourced",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -260,7 +311,7 @@ export const articles: Article[] = [
   },
   {
     slug: "gpu-bill-product-economics",
-    index: "07",
+    index: "08",
     title: "Your GPU bill is part of your product economics",
     category: "Unit economics",
     kicker: "Unit economics · 4 min read",
@@ -294,7 +345,7 @@ export const articles: Article[] = [
   },
   {
     slug: "baseload-vs-burst",
-    index: "08",
+    index: "09",
     title: "Baseload vs burst: the 80/20 of GPU infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 4 min read",
@@ -327,7 +378,7 @@ export const articles: Article[] = [
   },
   {
     slug: "qualifying-deployments",
-    index: "09",
+    index: "10",
     title: "What ‘qualifying deployments’ actually means",
     category: "Pricing, explained",
     kicker: "Pricing, explained · 5 min read",
@@ -365,7 +416,7 @@ export const articles: Article[] = [
   },
   {
     slug: "operating-infrastructure",
-    index: "10",
+    index: "11",
     title: "If you run GPUs 24/7, you’re operating infrastructure",
     category: "Infrastructure strategy",
     kicker: "Infrastructure strategy · 3 min read",
@@ -397,7 +448,7 @@ export const articles: Article[] = [
   },
   {
     slug: "commitment-question",
-    index: "11",
+    index: "12",
     title: "The 3-year commitment question, answered honestly",
     category: "Honest answers",
     kicker: "Honest answers · 5 min read",
@@ -405,7 +456,7 @@ export const articles: Article[] = [
     standfirst: "When long-term GPU leasing makes sense, when it doesn’t — and the risks we’d talk you out of signing.",
     date: "SEP 02, 2026",
     readTime: "5 MIN READ",
-    next: "kimi-k3-faster-serving",
+    next: "deepinfer-reserved-b200-b300",
     body: (
       <>
       <p>&ldquo;Why would I commit for three years?&rdquo; is the single best question a buyer can ask us, and we take it as a compliment every time. A company that asks it is already thinking about compute the right way. Here&rsquo;s our honest answer &mdash; including the cases where we&rsquo;d tell you not to sign.</p>
